@@ -2,7 +2,7 @@
 
 IO::IO (char *input, char *output)
 {
-  //ToDo Read the file with the simulations parameters
+  //ToDo Read the file with the simulations parameters - nicht
 }
 
 IO::~IO ()

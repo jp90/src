@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : NumSimIO.cpp
+// Name        : NumSimFluid.cpp
 // Author      : 
 // Version     :
 // Copyright   : Your copyright notice
@@ -11,12 +11,6 @@
 using namespace std;
 
 int main() {
-
-	char in[] = "./inputvals.txt";
-	char out[] = "output";
-	IO test(in,out);
-
-
-
+	cout << "!!!Hello World2!!!" << endl; // prints !!!Hello World!!!
 	return 0;
 }
