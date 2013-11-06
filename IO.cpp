@@ -1,10 +1,15 @@
 #include "IO.hpp"
+#include <iostream>
+#include <fstream>
+
+
+using namespace std;
 
 IO::IO (char *input, char *output)
 {
-  //ToDo Read the file with the simulations parameters - nicht
+  this->output = output;
+  readInputfile(input);
 }
-
 IO::~IO ()
 {
 
@@ -13,7 +18,17 @@ IO::~IO ()
 void
 IO::readInputfile (char *filename)
 {
-  //ToDo Store the input parameters.
+	 string line;
+
+	 ifstream infile(filename);
+
+
+	  while (getline(infile,line))
+	    {
+	      // mach was mit der zeile
+	      cout << line << endl;
+	    }
+
 }
 
 
