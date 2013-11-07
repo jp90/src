@@ -5,6 +5,7 @@
  */
 
 #include "typedef.h"
+#include "simparam.h"
 
 #ifndef IO_HPP_
 #define IO_HPP_
@@ -39,6 +40,10 @@ public:
   void writeVTKFile (const MultiIndexType & griddimension,
 		     GridFunctionType & u, GridFunctionType & v,
 		     GridFunctionType & p, const PointType & delta, int step);
+
+
+  simparam para;
+
 
 private:
 
