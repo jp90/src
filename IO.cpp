@@ -25,8 +25,11 @@ IO::readInputfile (char *filename)
 
 	  while (getline(infile,line))
 	    {
-	      // mach was mit der zeile
-	      cout << line << endl;
+
+		string before_equ=   line.substr(0,line.find("="));
+      //line.find("=");
+		  // mach was mit der zeile
+	      cout << before_equ<< endl;
 	    }
 
 }

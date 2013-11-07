@@ -14,5 +14,6 @@ int main() {
     char input[] = "./src/inputvals.txt";
     char output[] = "./src/inputvals.txt";
     IO SimIO(input,output);
-	return 0;
+
+    return 0;
 }
