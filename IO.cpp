@@ -20,13 +20,52 @@ IO::readInputfile (char *filename)
 {
 	 string line;
 
-	 ifstream infile(filename);
+	 // Default values if no input file available
+	 para.xLength=1.0;
+	 para.yLength=1.0;
+	 para.iMax=128;
+	 para.jMax=128;
+	 para.tEnd=16.5;
+	 para.deltaT=0;
+	 para.tau=0.5;
+	 para.deltaVec=1.4;
+	 para.iterMax=100;
+	 para.eps=0.001;
+	 para.omg=1.7;
+	 para.alpha=0.9;
+	 para.re=1000;
+	 para.gx=0;
+	 para.gy=0;
+	 para.ui=0;
+	 para.vi=0;
+	 para.pi=0;
 
+	 ifstream infile(filename);
 
 	  while (getline(infile,line))
 	    {
-	      // mach was mit der zeile
-	      cout << line << endl;
+	      // Read values from inputvals.txt
+		  int pos_equ = line.find("=");
+		  string before_equ = line.substr(0,pos_equ);
+		  string after_equ = line.substr(pos_equ+1,line.length());
+		  if (!before_equ.compare("xLength")) para.xLength = atof(after_equ.c_str());
+		  if (!before_equ.compare("yLength")) para.yLength = atof(after_equ.c_str());
+		  if (!before_equ.compare("iMax")) para.iMax = atof(after_equ.c_str());
+		  if (!before_equ.compare("jMax")) para.jMax = atof(after_equ.c_str());
+		  if (!before_equ.compare("tEnd")) para.tEnd = atof(after_equ.c_str());
+		  if (!before_equ.compare("tau")) para.tau = atof(after_equ.c_str());
+		  if (!before_equ.compare("deltaVec")) para.deltaVec = atof(after_equ.c_str());
+		  if (!before_equ.compare("iterMax")) para.iterMax = atof(after_equ.c_str());
+		  if (!before_equ.compare("eps")) para.eps = atof(after_equ.c_str());
+		  if (!before_equ.compare("omg")) para.omg = atof(after_equ.c_str());
+		  if (!before_equ.compare("alpha")) para.alpha = atof(after_equ.c_str());
+		  if (!before_equ.compare("re")) para.re = atof(after_equ.c_str());
+		  if (!before_equ.compare("gx")) para.gx = atof(after_equ.c_str());
+		  if (!before_equ.compare("gy")) para.gy = atof(after_equ.c_str());
+		  if (!before_equ.compare("ui")) para.ui = atof(after_equ.c_str());
+		  if (!before_equ.compare("vi")) para.vi = atof(after_equ.c_str());
+		  if (!before_equ.compare("pi")) para.pi = atof(after_equ.c_str());
+
 	    }
 
 }
