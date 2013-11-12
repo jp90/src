@@ -8,30 +8,27 @@
 
 #include <iostream>
 #include "IO.hpp"
+#include "gridfunction.h"
 using namespace std;
 
 int main() {
     char input[] = "./src/inputvals.txt";
     char output[] = "./src/inputvals.txt";
     IO SimIO(input,output);
+    Gridfunction Gitter(10,10);
+    MultiIndexType begin, end, offset;
+    begin[0]=1;
+    end[0]=1;
+    begin[1]=2;
+    end[1]=8;
+    offset[0]=1;
+    offset[1]=3;
+    RealType factor=3;
 
-    cout<<SimIO.para.xLength<<endl;
-    cout<<SimIO.para.yLength<<endl;
-    cout<<SimIO.para.iMax<<endl;
-    cout<<SimIO.para.jMax<<endl;
-    cout<<SimIO.para.tEnd<<endl;
-    cout<<SimIO.para.deltaT<<endl;
-    cout<<SimIO.para.tau<<endl;
-    cout<<SimIO.para.deltaVec<<endl;
-    cout<<SimIO.para.iterMax<<endl;
-    cout<<SimIO.para.eps<<endl;
-    cout<<SimIO.para.omg<<endl;
-    cout<<SimIO.para.alpha<<endl;
-    cout<<SimIO.para.re<<endl;
-    cout<<SimIO.para.gx<<endl;
-    cout<<SimIO.para.gy<<endl;
-    cout<<SimIO.para.ui<<endl;
-    cout<<SimIO.para.vi<<endl;
-    cout<<SimIO.para.pi<<endl;
+    Gitter.SetGridFunction(begin,end,4.0);
+    Gitter.Grid_Print();
+    Gitter.SetGridFunction(begin,end,4.0,offset);
+
+    Gitter.Grid_Print();
 	return 0;
 }
