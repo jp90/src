@@ -71,7 +71,7 @@ void Stencil::setFyyStencil(){
 	stencil[1][2]=-2.0/(h[1]*h[1]);
 }
 void Stencil::setFxStencil(){
-	stencil[1][2]=1.0/h[0];
+	stencil[2][1]=1.0/h[0];
 	stencil[1][1]=-1.0/h[0];
 }
 
