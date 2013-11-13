@@ -18,7 +18,7 @@ public:
     ~Stencil();
 	void ApplyStencilOperator(const MultiIndexType& gridreadbegin, const MultiIndexType& gridreadend,
 			                  const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
-		                      Gridfunction sourcegridfunction, Gridfunction imagegridfunction);
+		                      Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
 	void setFxStencil();
 	void setFxxStencil();
 	void setFyyStencil();
