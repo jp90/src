@@ -30,9 +30,9 @@ Stencil::Stencil(int stencilwidth, const PointType& h) : h(h) {
 }
 
 Stencil::~Stencil(){
-//	 for (int i=0;i<=stencilwidth;i++){
-//		 delete[] stencil[i];
-//	 }
+	 for (int i=0;i<=stencilwidth;i++){
+		 delete[] stencil[i];
+	 }
 
 }
 
