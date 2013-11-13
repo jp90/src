@@ -16,9 +16,12 @@ public:
 
 	void ~Stencil();
 	void ApplyStencilOperator(const MultiIndexType& gridreadbegin, const MultiIndexType& gridreadend, const MultiIndexType gridwritebegin, const MultiIndexType gridwriteend, Gridfunction sourcegridfunction, Gridfunction imagegridfunction);
+	void setFxStencil();
 	void setFxxStencil();
+	void setFyyStencil();
 StencilType stencil;
 int stencilwidth;
 const PointType& h;
+
 };
 #endif /* STENCIL_H_ */
