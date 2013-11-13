@@ -20,14 +20,14 @@ int main() {
     Gridfunction Ableitungen(10,10);
     MultiIndexType begin, end, offset, gridreadbegin, gridreadend, gridwritebegin, gridwriteend;
     begin[0]=1;
-    end[0]=1;
+    end[0]=3;
     begin[1]=2;
     end[1]=8;
     offset[0]=1;
     offset[1]=3;
     PointType h;
-    h[0]=0.1;
-    h[1]=0.1;
+    h[0]=1;
+    h[1]=1;
     Stencil stenc(3,h);
     stenc.setFxStencil();
     Gitter.SetGridFunction(begin,end,4.0);
@@ -35,17 +35,17 @@ int main() {
     cout << endl;
     gridreadbegin[0]=1;
     gridreadbegin[1]=1;
-    gridreadend[0]=8;
-    gridreadend[0]=8;
+    gridreadend[0]=9;
+    gridreadend[0]=9;
     gridwritebegin[0]=1;
     gridwritebegin[1]=1;
-    gridwriteend[0]=8;
-    gridwriteend[1]=8;
+    gridwriteend[0]=9;
+    gridwriteend[1]=9;
 
     stenc.ApplyStencilOperator(gridreadbegin, gridreadend, gridwritebegin, gridwriteend,Gitter, Ableitungen);
-
-
-  //  Ableitungen.Grid_Print();
-	cout <<"test";
+    cout << endl;
+    Ableitungen.Grid_Print();
+    cout << endl;
+    cout <<"test";
     return 0;
 }
