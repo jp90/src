@@ -43,9 +43,9 @@ Gridfunction::Gridfunction(const MultiIndexType griddimension){
 }
 
 Gridfunction::~Gridfunction(){
-	 for (int i=0;i<griddimension[0];i++)
-		delete [] gridfunction[i];
-	 delete [] gridfunction;
+//	 for (int i=0;i<griddimension[0];i++)
+//		delete [] gridfunction[i];
+//	 delete [] gridfunction;
 }
 
 GridFunctionType Gridfunction::getGridfunction(){
