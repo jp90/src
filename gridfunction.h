@@ -21,7 +21,7 @@ public:
 
 	~Gridfunction();
 
-	Gridfunction* getGridfunction();
+	GridFunctionType getGridfunction();
 
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end, RealType value);
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end, RealType factor, MultiIndexType& offset);
@@ -34,9 +34,8 @@ public:
 	void Grid_Print();
 
 
-	RealType** grid;
-	int grid_dimX, grid_dimY;
-
+	GridFunctionType gridfunction;
+	MultiIndexType griddimension;
 
 };
 
