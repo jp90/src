@@ -18,7 +18,16 @@ int main() {
 	char output[] = "./src/inputvals.txt";
 	IO SimIO(input, output);
 
-	MultiIndexType begin, end, offset, gridreadbegin, gridreadend,
+	IndexType n=0;
+	RealType t=0;
+
+	while (t<SimIO.para.tEnd){
+
+		n++;
+		t+=SimIO.para.deltaT;
+	}
+	cout << "gut";
+/*	MultiIndexType begin, end, offset, gridreadbegin, gridreadend,
 			gridwritebegin, gridwriteend;
 
 	PointType h;
@@ -51,5 +60,5 @@ int main() {
 
 	u.Grid_Print();
 	cout << endl;
-	FFX.Grid_Print();
+	FFX.Grid_Print();*/
 }

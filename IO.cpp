@@ -54,6 +54,7 @@ IO::readInputfile (char *filename)
 		  if (!before_equ.compare("jMax")) para.jMax = atof(after_equ.c_str());
 		  if (!before_equ.compare("tEnd")) para.tEnd = atof(after_equ.c_str());
 		  if (!before_equ.compare("tau")) para.tau = atof(after_equ.c_str());
+		  if (!before_equ.compare("deltaT")) para.deltaT = atof(after_equ.c_str());
 		  if (!before_equ.compare("deltaVec")) para.deltaVec = atof(after_equ.c_str());
 		  if (!before_equ.compare("iterMax")) para.iterMax = atof(after_equ.c_str());
 		  if (!before_equ.compare("eps")) para.eps = atof(after_equ.c_str());
