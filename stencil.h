@@ -31,12 +31,12 @@ public:
 	void setUUx_5Stencil();
 	void setUUx_6Stencil();
 
-	void setUUy_1Stencil();
-	void setUUy_2Stencil();
-	void setUUy_3Stencil();
-	void setUUy_4Stencil();
-	void setUUy_5Stencil();
-	void setUUy_6Stencil();
+	void setVVy_1Stencil();
+	void setVVy_2Stencil();
+	void setVVy_3Stencil();
+	void setVVy_4Stencil();
+	void setVVy_5Stencil();
+	void setVVy_6Stencil();
 
 	void setUVx_1Stencil();
 	void setUVx_2Stencil();

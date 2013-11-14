@@ -116,32 +116,32 @@ void Stencil::setUUx_6Stencil(){
 	stencil[1][1]=-1.0/2.0;
 	stencil[0][1]=1.0/2.0;
 }
-void Stencil::setUUy_1Stencil(){
+void Stencil::setVVy_1Stencil(){
 	abs=false;
 	stencil[1][1]=1.0/2.0;
 	stencil[1][2]=1.0/2.0;
 }
-void Stencil::setUUy_2Stencil(){
+void Stencil::setVVy_2Stencil(){
 	abs=false;
 	stencil[1][1]=1.0/2.0;
 	stencil[1][0]=1.0/2.0;
 }
-void Stencil::setUUy_3Stencil(){
+void Stencil::setVVy_3Stencil(){
 	abs = true;
 	stencil[1][1]=1.0/2.0;
 	stencil[1][2]=1.0/2.0;
 }
-void Stencil::setUUy_4Stencil(){
+void Stencil::setVVy_4Stencil(){
 	abs=false;
 	stencil[1][1]=1.0/2.0;
 	stencil[1][2]=-1.0/2.0;
 }
-void Stencil::setUUy_5Stencil(){
+void Stencil::setVVy_5Stencil(){
 	abs = true;
 	stencil[1][1]=1.0/2.0;
 	stencil[1][0]=1.0/2.0;
 }
-void Stencil::setUUy_6Stencil(){
+void Stencil::setVVy_6Stencil(){
 	abs=false;
 	stencil[1][1]=-1.0/2.0;
 	stencil[1][0]=1.0/2.0;
