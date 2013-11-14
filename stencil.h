@@ -11,14 +11,16 @@
 #include "gridfunction.h"
 #include "typedef.h"
 
-class Stencil{
+class Stencil {
 public:
 	Stencil(int stencilwidth, const PointType& h);
 
-    ~Stencil();
-	void ApplyStencilOperator(const MultiIndexType& gridreadbegin, const MultiIndexType& gridreadend,
-			                  const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
-		                      Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
+	~Stencil();
+	void ApplyStencilOperator(const MultiIndexType& gridreadbegin,
+			const MultiIndexType& gridreadend,
+			const MultiIndexType& gridwritebegin,
+			const MultiIndexType& gridwriteend,
+			Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
 	void setUxStencil();
 	void setUyStencil();
 	void setUxxStencil();
@@ -55,12 +57,11 @@ public:
 	void setUVy_6Stencil();
 	void setUVy_7Stencil();
 	void setUVy_8Stencil();
-StencilType stencil;
-int stencilwidth;
-const PointType& h;
+	StencilType stencil;
+	int stencilwidth;
+	const PointType& h;
 
-bool abs;
-
+	bool abs;
 
 };
 #endif /* STENCIL_H_ */
