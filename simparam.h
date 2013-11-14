@@ -5,28 +5,30 @@
  *      Author: jan-philippwolf
  */
 
+#include "typedef.h"
+
 #ifndef SIMPARAM_H_
 #define SIMPARAM_H_
 
 struct simparam {
-	float xLength;
-	float yLength;
+	RealType xLength;
+	RealType yLength;
 	int	  iMax;
 	int	  jMax;
-	float tEnd;
-	float deltaT;
-	float tau;
-	float deltaVec;
+	RealType tEnd;
+	RealType deltaT;
+	RealType tau;
+	RealType deltaVec;
 	int   iterMax;
-	float eps;
-	float omg;
-	float alpha;
-	float re;
-	float gx;
-	float gy;
-	float ui;
-	float vi;
-	float pi;
+	RealType eps;
+	RealType omg;
+	RealType alpha;
+	RealType re;
+	RealType gx;
+	RealType gy;
+	RealType ui;
+	RealType vi;
+	RealType pi;
 };
 
 #endif /* SIMPARAM_H_ */
