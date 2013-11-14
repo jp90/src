@@ -23,12 +23,12 @@ public:
 	void setFyStencil();
 	void setFxxStencil();
 	void setFyyStencil();
-	void Stencil::setFFx_1Stencil();
-	void Stencil::setFFx_2Stencil();
-	void Stencil::setFFx_3Stencil();
-	void Stencil::setFFx_4Stencil();
-	void Stencil::setFFx_5Stencil();
-	void Stencil::setFFx_6Stencil();
+	void setFFx_1Stencil();
+	void setFFx_2Stencil();
+	void setFFx_3Stencil();
+	void setFFx_4Stencil();
+	void setFFx_5Stencil();
+	void setFFx_6Stencil();
 
 StencilType stencil;
 int stencilwidth;
