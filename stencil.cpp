@@ -108,3 +108,97 @@ void Stencil::setFFx_6Stencil(){
 	stencil[1][1]=-1/2;
 	stencil[0][1]=1/2;
 }
+void Stencil::setFFy_1Stencil(){
+	stencil[1][1]=1/2;
+	stencil[1][2]=1/2;
+}
+void Stencil::setFFy_2Stencil(){
+	stencil[1][1]=1/2;
+	stencil[1][0]=1/2;
+}
+void Stencil::setFFy_3Stencil(){
+	abs = true;
+	stencil[1][1]=1/2;
+	stencil[1][2]=1/2;
+}
+void Stencil::setFFy_4Stencil(){
+	stencil[1][1]=1/2;
+	stencil[1][2]=-1/2;
+}
+void Stencil::setFFy_5Stencil(){
+	abs = true;
+	stencil[1][1]=1/2;
+	stencil[1][0]=1/2;
+}
+void Stencil::setFFy_6Stencil(){
+	stencil[1][1]=-1/2;
+	stencil[1][0]=1/2;
+}
+void Stencil::setFGx_1Stencil(){
+	stencil[1][1]=1/2;
+	stencil[1][2]=1/2;
+}
+void Stencil::setFGx_2Stencil(){
+	stencil[1][1]=1/2;
+	stencil[2][1]=1/2;
+}
+void Stencil::setFGx_3Stencil(){
+	stencil[0][1]=1/2;
+	stencil[0][2]=1/2;
+}
+void Stencil::setFGx_4Stencil(){
+	stencil[0][1]=1/2;
+	stencil[1][1]=1/2;
+}
+void Stencil::setFGx_5Stencil(){
+	abs=true;
+	stencil[1][1]=1/2;
+	stencil[1][2]=1/2;
+}
+void Stencil::setFGx_6Stencil(){
+	stencil[1][1]=1/2;
+	stencil[2][1]=-1/2;
+}
+void Stencil::setFGx_7Stencil(){
+	abs=true;
+	stencil[0][1]=1/2;
+	stencil[0][2]=1/2;
+}
+void Stencil::setFGx_8Stencil(){
+	stencil[0][1]=1/2;
+	stencil[1][1]=-1/2;
+}
+void Stencil::setFGy_1Stencil(){
+	stencil[2][1]=1/2;
+	stencil[1][1]=1/2;
+}
+void Stencil::setFGy_2Stencil(){
+	stencil[1][2]=1/2;
+	stencil[1][1]=1/2;
+}
+void Stencil::setFGy_3Stencil(){
+	stencil[1][0]=1/2;
+	stencil[2][0]=1/2;
+}
+void Stencil::setFGy_4Stencil(){
+	stencil[1][0]=1/2;
+	stencil[1][1]=1/2;
+}
+void Stencil::setFGy_5Stencil(){
+	abs=true;
+	stencil[2][1]=1/2;
+	stencil[1][1]=1/2;
+}
+void Stencil::setFGy_6Stencil(){
+	stencil[1][2]=-1/2;
+	stencil[1][1]=1/2;
+}
+void Stencil::setFGy_7Stencil(){
+	abs=true;
+	stencil[1][0]=1/2;
+	stencil[2][0]=1/2;
+}
+void Stencil::setFGy_8Stencil(){
+	stencil[1][0]=1/2;
+	stencil[1][1]=-1/2;
+}
