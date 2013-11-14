@@ -11,31 +11,58 @@
 #include "gridfunction.h"
 #include "typedef.h"
 
-class Stencil{
+class Stencil {
 public:
 	Stencil(int stencilwidth, const PointType& h);
 
-    ~Stencil();
-	void ApplyStencilOperator(const MultiIndexType& gridreadbegin, const MultiIndexType& gridreadend,
-			                  const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
-		                      Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
-	void setFxStencil();
-	void setFyStencil();
-	void setFxxStencil();
-	void setFyyStencil();
-	void setFFx_1Stencil();
-	void setFFx_2Stencil();
-	void setFFx_3Stencil();
-	void setFFx_4Stencil();
-	void setFFx_5Stencil();
-	void setFFx_6Stencil();
+	~Stencil();
+	void ApplyStencilOperator(const MultiIndexType& gridreadbegin,
+			const MultiIndexType& gridreadend,
+			const MultiIndexType& gridwritebegin,
+			const MultiIndexType& gridwriteend,
+			Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
+	void setUxStencil();
+	void setUyStencil();
+	void setPxStencil();
+	void setUxxStencil();
+	void setUyyStencil();
 
-StencilType stencil;
-int stencilwidth;
-const PointType& h;
+	void setUUx_1Stencil();
+	void setUUx_2Stencil();
+	void setUUx_3Stencil();
+	void setUUx_4Stencil();
+	void setUUx_5Stencil();
+	void setUUx_6Stencil();
 
-bool abs;
+	void setVVy_1Stencil();
+	void setVVy_2Stencil();
+	void setVVy_3Stencil();
+	void setVVy_4Stencil();
+	void setVVy_5Stencil();
+	void setVVy_6Stencil();
 
+	void setUVx_1Stencil();
+	void setUVx_2Stencil();
+	void setUVx_3Stencil();
+	void setUVx_4Stencil();
+	void setUVx_5Stencil();
+	void setUVx_6Stencil();
+	void setUVx_7Stencil();
+	void setUVx_8Stencil();
+
+	void setUVy_1Stencil();
+	void setUVy_2Stencil();
+	void setUVy_3Stencil();
+	void setUVy_4Stencil();
+	void setUVy_5Stencil();
+	void setUVy_6Stencil();
+	void setUVy_7Stencil();
+	void setUVy_8Stencil();
+	StencilType stencil;
+	int stencilwidth;
+	const PointType& h;
+
+	bool abs;
 
 };
 #endif /* STENCIL_H_ */

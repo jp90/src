@@ -10,54 +10,46 @@
 #include "IO.hpp"
 #include "gridfunction.h"
 #include "stencil.h"
+#include "derivatives.h"
 using namespace std;
 
 int main() {
-    char input[] = "./src/inputvals.txt";
-    char output[] = "./src/inputvals.txt";
-    IO SimIO(input,output);
-    Gridfunction Gitter(10,10);
-    MultiIndexType begin, end, offset, gridreadbegin, gridreadend, gridwritebegin, gridwriteend;
-    begin[0]=1;
-    end[0]=3;
-    begin[1]=2;
-    end[1]=8;
-    Gitter.SetGridFunction(begin,end,4.0);
-    Gitter.MultiplyGridFunctions(begin,end,Gitter);
-    Gitter.Grid_Print();
-    cout << endl;
-    Gridfunction Ableitungen(10,10);
+	char input[] = "./src/inputvals.txt";
+	char output[] = "./src/inputvals.txt";
+	IO SimIO(input, output);
 
-    /*
-    offset[0]=1;
-    offset[1]=3;
-    PointType h;
-    h[0]=1;
-    h[1]=1;
-    Stencil stenc(3,h);
-    stenc.setFxStencil();
-    Gitter.SetGridFunction(begin,end,4.0);
-    Gitter.Grid_Print();
-    cout << endl;
+	MultiIndexType begin, end, offset, gridreadbegin, gridreadend,
+			gridwritebegin, gridwriteend;
 
-    gridreadbegin[0]=1;
-    gridreadbegin[1]=1;
-    gridreadend[0]=9;
-    gridreadend[0]=9;
-    gridwritebegin[0]=1;
-    gridwritebegin[1]=1;
-    gridwriteend[0]=9;
-    gridwriteend[1]=9;
+	PointType h;
+	h[0] = 1.0;
+	h[1] = 1.0;
+	MultiIndexType dim;
+	dim[0] = 20;
+	dim[1] = 20;
+	Gridfunction u(dim);
+	begin[0] = 0;
+	end[0] = 19;
+	begin[1] = 0;
+	end[1] = 19;
 
-    stenc.ApplyStencilOperator(gridreadbegin, gridreadend, gridwritebegin, gridwriteend,Gitter, Ableitungen);
-    cout << endl;
-    Ableitungen.Grid_Print();
-    stenc.setFxxStencil();
-    stenc.ApplyStencilOperator(gridreadbegin, gridreadend, gridwritebegin, gridwriteend,Gitter, Ableitungen);
-    cout << endl;
-    Ableitungen.Grid_Print();
+	u.SetGridFunction(begin, end, 4.0);
 
-    cout << endl;
-    cout <<"test";
-    return 0; */
+	begin[0] = 5;
+	end[0] = 12;
+	begin[1] = 3;
+	end[1] = 15;
+
+	u.SetGridFunction(begin, end, 2.0);
+
+	begin[0] = 1;
+	end[0] = 18;
+	begin[1] = 1;
+	end[1] = 18;
+	RealType alpha = 1.0;
+	Gridfunction FFX = Uy(dim, u, alpha, h);
+
+	u.Grid_Print();
+	cout << endl;
+	FFX.Grid_Print();
 }
