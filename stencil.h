@@ -23,6 +23,13 @@ public:
 	void setFyStencil();
 	void setFxxStencil();
 	void setFyyStencil();
+	void Stencil::setFFx_1Stencil();
+	void Stencil::setFFx_2Stencil();
+	void Stencil::setFFx_3Stencil();
+	void Stencil::setFFx_4Stencil();
+	void Stencil::setFFx_5Stencil();
+	void Stencil::setFFx_6Stencil();
+
 StencilType stencil;
 int stencilwidth;
 const PointType& h;

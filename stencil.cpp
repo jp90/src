@@ -81,9 +81,30 @@ void Stencil::setFyyStencil(){
 	stencil[1][1]=-2.0/(h[1]*h[1]);
 	stencil[1][2]=1.0/(h[1]*h[1]);
 }
-//void Stencil::setFFx_1Stencil(){
-
-//	abs=true;
-
-
-//}
+// Stencils for Derivative d/dx (u^2)
+void Stencil::setFFx_1Stencil(){
+	stencil[1][1]=1/2;
+	stencil[2][1]=1/2;
+}
+void Stencil::setFFx_2Stencil(){
+	stencil[1][1]=1/2;
+	stencil[0][1]=1/2;
+}
+void Stencil::setFFx_3Stencil(){
+	abs = true;
+	stencil[1][1]=1/2;
+	stencil[2][1]=1/2;
+}
+void Stencil::setFFx_4Stencil(){
+	stencil[1][1]=1/2;
+	stencil[2][1]=-1/2;
+}
+void Stencil::setFFx_5Stencil(){
+	abs = true;
+	stencil[1][1]=1/2;
+	stencil[0][1]=1/2;
+}
+void Stencil::setFFx_6Stencil(){
+	stencil[1][1]=-1/2;
+	stencil[0][1]=1/2;
+}

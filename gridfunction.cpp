@@ -131,7 +131,7 @@ void Gridfunction::SetGridFunction(const MultiIndexType& begin, const MultiIndex
 		 }
 	 }
 }
-// Mit oder ohne Offset???
+
 void Gridfunction::SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end, RealType factor, Gridfunction& sourcegridfunction, MultiIndexType& offset, RealType constant){
 	if (begin[0]<0){cout << "Invalid Index";}
 	if (end[0]>griddimension[0]){cout << "Invalid Index";}
