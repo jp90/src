@@ -47,7 +47,7 @@ int main() {
 	begin[1] = 1;
 	end[1] = 18;
 	RealType alpha = 1.0;
-	Gridfunction FFX = UVy(dim, u, u, alpha, h);
+	Gridfunction FFX = Uy(dim, u, alpha, h);
 
 	u.Grid_Print();
 	cout << endl;

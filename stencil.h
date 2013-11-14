@@ -23,6 +23,7 @@ public:
 			Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
 	void setUxStencil();
 	void setUyStencil();
+	void setPxStencil();
 	void setUxxStencil();
 	void setUyyStencil();
 

@@ -5,6 +5,44 @@
  */
 #include "derivatives.h"
 
+Gridfunction Ux(const MultiIndexType& dimension, Gridfunction& u,
+		const RealType alpha, const PointType& h) {
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = dimension[0] - 2;
+	begin[1] = 1;
+	end[1] = dimension[1] - 2;
+
+	Gridfunction branch_1(dimension);
+	Stencil stencil_1(3, h);
+	stencil_1.setUxStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, u, branch_1);
+
+	return branch_1;
+
+}
+
+Gridfunction Uy(const MultiIndexType& dimension, Gridfunction& u,
+		const RealType alpha, const PointType& h) {
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = dimension[0] - 2;
+	begin[1] = 1;
+	end[1] = dimension[1] - 2;
+
+	Gridfunction branch_1(dimension);
+	Stencil stencil_1(3, h);
+	stencil_1.setUyStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, u, branch_1);
+
+	return branch_1;
+
+}
+
 Gridfunction Uxx(const MultiIndexType& dimension, Gridfunction& u,
 		const RealType alpha, const PointType& h) {
 
@@ -55,7 +93,7 @@ Gridfunction Px(const MultiIndexType& dimension, Gridfunction& p,
 
 	Gridfunction branch_1(dimension);
 	Stencil stencil_1(3, h);
-	stencil_1.setUxStencil();
+	stencil_1.setPxStencil();
 	stencil_1.ApplyStencilOperator(begin, end, begin, end, p, branch_1);
 
 	return branch_1;

@@ -11,6 +11,11 @@
 #include "gridfunction.h"
 #include "stencil.h"
 
+Gridfunction Ux(const MultiIndexType& dimension, Gridfunction& u,
+		const RealType alpha, const PointType& h);
+
+Gridfunction Uy(const MultiIndexType& dimension, Gridfunction& u,
+		const RealType alpha, const PointType& h);
 Gridfunction Uxx(const MultiIndexType& dimension, Gridfunction& u,
 		const RealType alpha, const PointType& h);
 

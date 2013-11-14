@@ -65,13 +65,18 @@ void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const Mu
 }
 void Stencil::setUxStencil(){
 	abs=false;
-	stencil[2][1]=1.0/h[0];
-	stencil[1][1]=-1.0/h[0];
+	stencil[0][1]=-1.0/h[0];
+	stencil[1][1]=1.0/h[0];
 }
 void Stencil::setUyStencil(){
 	abs=false;
+	stencil[1][1]=1.0/h[0];
+	stencil[1][0]=-1.0/h[0];
+}
+void Stencil::setPxStencil(){
+	abs=false;
+	stencil[2][1]=1.0/h[0];
 	stencil[1][1]=-1.0/h[0];
-	stencil[1][2]=1.0/h[0];
 }
 void Stencil::setUxxStencil(){
 	abs=false;
