@@ -65,7 +65,6 @@ IO::readInputfile (char *filename)
 		  if (!before_equ.compare("ui")) para.ui = atof(after_equ.c_str());
 		  if (!before_equ.compare("vi")) para.vi = atof(after_equ.c_str());
 		  if (!before_equ.compare("pi")) para.pi = atof(after_equ.c_str());
-
 	    }
 
 }
