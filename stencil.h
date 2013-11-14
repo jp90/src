@@ -20,11 +20,15 @@ public:
 			                  const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
 		                      Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
 	void setFxStencil();
+	void setFyStencil();
 	void setFxxStencil();
 	void setFyyStencil();
 StencilType stencil;
 int stencilwidth;
 const PointType& h;
+
+bool abs;
+
 
 };
 #endif /* STENCIL_H_ */

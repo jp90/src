@@ -31,6 +31,7 @@ public:
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end, RealType factor, Gridfunction& sourcegridfunction, MultiIndexType& offset, RealType constant);
 	void AddToGridFunction(const MultiIndexType& begin, const MultiIndexType& end, RealType factor, Gridfunction& sourcegridfunction);
 	RealType MaxValueGridFunction(const MultiIndexType& begin, const MultiIndexType& end);
+	void MultiplyGridFunctions(const MultiIndexType& begin, const MultiIndexType& end, Gridfunction& sourcegridfunction);
 	void Grid_Print();
 
 

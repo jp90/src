@@ -105,7 +105,7 @@ void Gridfunction::SetGridFunction(const MultiIndexType& begin, const MultiIndex
 	if (end[1]>griddimension[1]){cout << "Invalid Index";}
 	for (int i=begin[0];i<=end[0];i++){
 		 for (int j=begin[1];j<=end[1];j++){
-			 gridfunction[i][j]=factor*sourcegridfunction.gridfunction[i][j];
+			 gridfunction[i][j]=factor*sourcegridfunction.getGridfunction()[i][j];
 		 }
 	 }
 }
@@ -127,7 +127,7 @@ void Gridfunction::SetGridFunction(const MultiIndexType& begin, const MultiIndex
 
 	for (int i=begin[0];i<=end[0];i++){
 		 for (int j=begin[1];j<=end[1];j++){
-			 gridfunction[i][j]=factor*sourcegridfunction.gridfunction[i+offset[0]][j+offset[1]];
+			 gridfunction[i][j]=factor*sourcegridfunction.getGridfunction()[i+offset[0]][j+offset[1]];
 		 }
 	 }
 }
@@ -149,7 +149,7 @@ void Gridfunction::SetGridFunction(const MultiIndexType& begin, const MultiIndex
 
 	for (int i=begin[0];i<=end[0];i++){
 		 for (int j=begin[1];j<=end[1];j++){
-			 gridfunction[i][j]=factor*sourcegridfunction.gridfunction[i+offset[0]][j+offset[1]]+constant;
+			 gridfunction[i][j]=factor*sourcegridfunction.getGridfunction()[i+offset[0]][j+offset[1]]+constant;
 		 }
 	 }
 }
@@ -161,7 +161,7 @@ void Gridfunction::AddToGridFunction(const MultiIndexType& begin, const MultiInd
 	if (end[1]>griddimension[1]){cout << "Invalid Index";}
 	for (int i=begin[0];i<=end[0];i++){
 		 for (int j=begin[1];j<=end[1];j++){
-			 gridfunction[i][j]+=factor*sourcegridfunction.gridfunction[i][j];
+			 gridfunction[i][j]+=factor*sourcegridfunction.getGridfunction()[i][j];
 		 }
 	 }
 }
@@ -178,6 +178,18 @@ RealType Gridfunction::MaxValueGridFunction(const MultiIndexType& begin, const M
 	  }
 	}
 	return max;
+}
+
+void Gridfunction::MultiplyGridFunctions(const MultiIndexType& begin, const MultiIndexType& end, Gridfunction& sourcegridfunction){
+	if (begin[0]<0){cout << "Invalid Index";}
+	if (end[0]>griddimension[0]){cout << "Invalid Index";}
+	if (begin[1]<0){cout << "Invalid Index";}
+	if (end[1]>griddimension[1]){cout << "Invalid Index";}
+	for (int i=begin[0];i<=end[0];i++){
+		 for (int j=begin[1];j<=end[1];j++){
+			 gridfunction[i][j]*=sourcegridfunction.getGridfunction()[i][j];
+		 }
+	 }
 }
 void Gridfunction::Grid_Print(){
 	for(int i=0;i<griddimension[0];i++){

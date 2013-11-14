@@ -17,6 +17,8 @@ using namespace std;
 Stencil::Stencil(int stencilwidth, const PointType& h) : h(h) {
 	this->stencilwidth = stencilwidth;
 
+	abs=false;
+
 	stencil = new RealType* [stencilwidth];
 	 for (int i=0;i<stencilwidth;i++){
 		 stencil[i] = new RealType[stencilwidth];
@@ -33,13 +35,12 @@ Stencil::~Stencil(){
 	 for (int i=0;i<stencilwidth;i++){
 		 delete[] stencil[i];
 	 }
-
+    delete[] stencil;
 }
 
 void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const MultiIndexType& gridreadend,
 		                           const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
 		                           Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction){
-	sourcegridfunction.Grid_Print();
 	int a =int((stencilwidth-1)/2);
 
 	for(int i=gridwritebegin[0];i<gridwriteend[0];i++){
@@ -54,25 +55,35 @@ void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const Mu
 
 				}
 			}
-
+          if(abs) {
+        	  if(sum<0.0)sum=-1.0*(sum);
+          }
 		imagegridfunction.getGridfunction()[i][j] = sum;
 	}
 	}
 
 }
-void Stencil::setFxxStencil(){
-	stencil[0][1]=1.0/(h[0]*h[0]);
-	stencil[0][2]=1.0/(h[0]*h[0]);
-	stencil[1][1]=-2.0/(h[0]*h[0]);
-}
-void Stencil::setFyyStencil(){
-	stencil[1][0]=1.0/(h[1]*h[1]);
-	stencil[1][1]=1.0/(h[1]*h[1]);
-	stencil[1][2]=-2.0/(h[1]*h[1]);
-}
 void Stencil::setFxStencil(){
 	stencil[2][1]=1.0/h[0];
 	stencil[1][1]=-1.0/h[0];
 }
+void Stencil::setFyStencil(){
+	stencil[1][1]=-1.0/h[0];
+	stencil[1][2]=1.0/h[0];
+}
+void Stencil::setFxxStencil(){
+	stencil[0][1]=1.0/(h[0]*h[0]);
+	stencil[1][1]=-2.0/(h[0]*h[0]);
+	stencil[2][1]=1.0/(h[0]*h[0]);
+}
+void Stencil::setFyyStencil(){
+	stencil[1][0]=1.0/(h[1]*h[1]);
+	stencil[1][1]=-2.0/(h[1]*h[1]);
+	stencil[1][2]=1.0/(h[1]*h[1]);
+}
+//void Stencil::setFFx_1Stencil(){
+
+//	abs=true;
 
 
+//}

@@ -17,12 +17,18 @@ int main() {
     char output[] = "./src/inputvals.txt";
     IO SimIO(input,output);
     Gridfunction Gitter(10,10);
-    Gridfunction Ableitungen(10,10);
     MultiIndexType begin, end, offset, gridreadbegin, gridreadend, gridwritebegin, gridwriteend;
     begin[0]=1;
     end[0]=3;
     begin[1]=2;
     end[1]=8;
+    Gitter.SetGridFunction(begin,end,4.0);
+    Gitter.MultiplyGridFunctions(begin,end,Gitter);
+    Gitter.Grid_Print();
+    cout << endl;
+    Gridfunction Ableitungen(10,10);
+
+    /*
     offset[0]=1;
     offset[1]=3;
     PointType h;
@@ -33,6 +39,7 @@ int main() {
     Gitter.SetGridFunction(begin,end,4.0);
     Gitter.Grid_Print();
     cout << endl;
+
     gridreadbegin[0]=1;
     gridreadbegin[1]=1;
     gridreadend[0]=9;
@@ -45,7 +52,12 @@ int main() {
     stenc.ApplyStencilOperator(gridreadbegin, gridreadend, gridwritebegin, gridwriteend,Gitter, Ableitungen);
     cout << endl;
     Ableitungen.Grid_Print();
+    stenc.setFxxStencil();
+    stenc.ApplyStencilOperator(gridreadbegin, gridreadend, gridwritebegin, gridwriteend,Gitter, Ableitungen);
+    cout << endl;
+    Ableitungen.Grid_Print();
+
     cout << endl;
     cout <<"test";
-    return 0;
+    return 0; */
 }
