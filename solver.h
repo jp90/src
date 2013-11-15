@@ -14,7 +14,7 @@ class Solver {
 
      RealType computeResidual(GridFunctionType& sourcegridfunction, GridFunctionType& rhs,
     		                     const PointType& h);
-     void SORCycle(Gridfunction* gridfunction, GridFunctionType& rhs, const PointType& delta,
+     void SORCycle(GridFunction* gridfunction, GridFunctionType& rhs, const PointType& delta,
     		          RealType omega);
 
 };

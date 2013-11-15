@@ -14,7 +14,7 @@
      return 0.0;
 
      }
-     void Solver::SORCycle(Gridfunction* gridfunction, GridFunctionType& rhs, const PointType& delta,
+     void Solver::SORCycle(GridFunction* gridfunction, GridFunctionType& rhs, const PointType& delta,
     		          RealType omega){
 
 

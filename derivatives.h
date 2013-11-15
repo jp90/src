@@ -11,35 +11,36 @@
 #include "gridfunction.h"
 #include "stencil.h"
 
-Gridfunction Ux(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Ux(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction Uy(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
-Gridfunction Uxx(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Uy(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction Uyy(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Uxx(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction Px(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Uyy(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction Vxx(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Px(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction Vyy(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Vxx(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction UUx(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void Vyy(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction VVy(const MultiIndexType& dimension, Gridfunction& u,
-		const RealType alpha, const PointType& h);
+void UUx(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
 
-Gridfunction UVy(const MultiIndexType& dimension, Gridfunction& u,
-		Gridfunction& v, const RealType alpha, const PointType& h);
-Gridfunction UVx(const MultiIndexType& dimension, Gridfunction& u,
-		Gridfunction& v, const RealType alpha, const PointType& h);
+void VVy(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h);
+
+void UVy(GridFunction& output,GridFunction& u, GridFunction& v, const RealType alpha,
+		const PointType& h);
+void UVx(GridFunction& output,GridFunction& u, GridFunction& v, const RealType alpha,
+		const PointType& h);
 
 #endif /* DERIVATIVES_H_ */

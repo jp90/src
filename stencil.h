@@ -20,7 +20,7 @@ public:
 			const MultiIndexType& gridreadend,
 			const MultiIndexType& gridwritebegin,
 			const MultiIndexType& gridwriteend,
-			Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction);
+			GridFunction& sourcegridFunction, GridFunction& imagegridFunction);
 	void setUxStencil();
 	void setUyStencil();
 	void setPxStencil();

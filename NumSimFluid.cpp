@@ -11,6 +11,8 @@
 #include "gridfunction.h"
 #include "stencil.h"
 #include "derivatives.h"
+#include "computation.h"
+
 using namespace std;
 
 int main() {
@@ -21,12 +23,66 @@ int main() {
 	IndexType n=0;
 	RealType t=0;
 
+	//initialize u,v,p
+	MultiIndexType begin,end,offset;
+	PointType h;
+	h[0]=1.0;
+	h[1]=1.0;
+	begin[0] = 0;
+	end[0] = SimIO.para.iMax-1;
+	begin[1] = 0;
+	end[1] = SimIO.para.jMax-1;
+	GridFunction u(SimIO.para.iMax, SimIO.para.jMax);
+
+	u.SetGridFunction(begin,end,SimIO.para.ui);
+	begin[0] = 2;
+	end[0] = SimIO.para.iMax-3;
+	begin[1] = 2;
+	end[1] = SimIO.para.jMax-3;
+	u.SetGridFunction(begin,end,2.0);
+
+	GridFunction v(SimIO.para.iMax, SimIO.para.jMax);
+	v.SetGridFunction(begin,end,SimIO.para.vi);
+	//v.Grid_Print();
+
+
+	GridFunction p(SimIO.para.iMax, SimIO.para.jMax);
+	p.SetGridFunction(begin,end,SimIO.para.pi);
+	//p.Grid_Print();
+
+	//comp.computeMomentumEquations(v, v, u,v, v.getGridFunction(), v.getGridFunction(),h, SimIO.para.deltaT);
+
+	//RealType alpha = 1.0;
+	//RealType re = 0.5;
+//	MultiIndexType begin,end,
+	MultiIndexType dim;
+	dim = u.griddimension;
+//	begin[0]=0;
+	//end[0]=u.griddimension[0];
+	//begin[1]=0;
+	//end[1]=u.griddimension[1];
+GridFunction gx(u.griddimension);
+GridFunction gy(u.griddimension);
+
+GridFunction g(u.griddimension);
+GridFunction f(u.griddimension);
+
+Computation computer(SimIO);
+
+u.Grid_Print();
+computer.setBoundaryG(u);
+u.Grid_Print();
+
+
+//computer.computeMomentumEquations(f,g,u,v,gx,gy,h,SimIO.para.deltaT);
+//f.Grid_Print();
+//g.Grid_Print();
 	while (t<SimIO.para.tEnd){
 
 		n++;
 		t+=SimIO.para.deltaT;
 	}
-	cout << "gut";
+	cout<<"laeuft!";
 /*	MultiIndexType begin, end, offset, gridreadbegin, gridreadend,
 			gridwritebegin, gridwriteend;
 
@@ -36,7 +92,7 @@ int main() {
 	MultiIndexType dim;
 	dim[0] = 20;
 	dim[1] = 20;
-	Gridfunction u(dim);
+	GridFunction u(dim);
 	begin[0] = 0;
 	end[0] = 19;
 	begin[1] = 0;
@@ -56,7 +112,7 @@ int main() {
 	begin[1] = 1;
 	end[1] = 18;
 	RealType alpha = 1.0;
-	Gridfunction FFX = Uy(dim, u, alpha, h);
+	GridFunction FFX = Uy(dim, u, alpha, h);
 
 	u.Grid_Print();
 	cout << endl;

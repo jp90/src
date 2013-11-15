@@ -40,7 +40,7 @@ Stencil::~Stencil(){
 
 void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const MultiIndexType& gridreadend,
 		                           const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
-		                           Gridfunction& sourcegridfunction, Gridfunction& imagegridfunction){
+		                           GridFunction& sourcegridfunction, GridFunction& imagegridfunction){
 	int a =int((stencilwidth-1)/2);
 
 	for(int i=gridwritebegin[0];i<gridwriteend[0];i++){
@@ -50,7 +50,7 @@ void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const Mu
 				for(int l=0;l<stencilwidth;l++){
 					//sum += sourcegridfunction.getVridfunction()[i-k-int((stencilwidth-1)/2)]
 					//                                           [j-l-int((stencilwidth-1)/2)]*stencil[k][l];
-					sum += sourcegridfunction.getGridfunction()[i+k-a][j+l-a]*stencil[k][l];
+					sum += sourcegridfunction.getGridFunction()[i+k-a][j+l-a]*stencil[k][l];
 
 
 				}
@@ -58,7 +58,7 @@ void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const Mu
           if(abs) {
         	  if(sum<0.0)sum=-1.0*(sum);
           }
-		imagegridfunction.getGridfunction()[i][j] = sum;
+		imagegridfunction.getGridFunction()[i][j] = sum;
 	}
 	}
 

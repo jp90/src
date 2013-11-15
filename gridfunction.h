@@ -13,15 +13,17 @@
 #include <iostream>
 #include <fstream>
 
-class Gridfunction {
+class GridFunction {
 public:
-	Gridfunction(int dimX, int dimY);
+	GridFunction(int dimX, int dimY);
 
-	Gridfunction(const MultiIndexType griddimension);
+	GridFunction(const MultiIndexType griddimension);
 
-	~Gridfunction();
+	~GridFunction();
 
-	GridFunctionType getGridfunction();
+
+
+	GridFunctionType getGridFunction();
 
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end,
 			RealType value);
@@ -30,24 +32,25 @@ public:
 	void ScaleGridFunction(const MultiIndexType& begin,
 			const MultiIndexType& end, RealType factor);
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end,
-			RealType factor, Gridfunction& sourcegridfunction);
+			RealType factor, GridFunction& sourcegridFunction);
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end,
-			RealType factor, Gridfunction& sourcegridfunction,
+			RealType factor, GridFunction& sourcegridFunction,
 			MultiIndexType& offset);
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end,
-			RealType factor, Gridfunction& sourcegridfunction,
+			RealType factor, GridFunction& sourcegridFunction,
 			MultiIndexType& offset, RealType constant);
 	void AddToGridFunction(const MultiIndexType& begin,
 			const MultiIndexType& end, RealType factor,
-			Gridfunction& sourcegridfunction);
+			GridFunction& sourcegridFunction);
 	RealType MaxValueGridFunction(const MultiIndexType& begin,
 			const MultiIndexType& end);
 	void MultiplyGridFunctions(const MultiIndexType& begin,
-			const MultiIndexType& end, Gridfunction& sourcegridfunction);
+			const MultiIndexType& end, GridFunction& sourcegridFunction);
 	void Grid_Print();
 
 	GridFunctionType gridfunction;
 	MultiIndexType griddimension;
+
 
 };
 
