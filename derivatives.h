@@ -11,26 +11,21 @@
 #include "gridfunction.h"
 #include "stencil.h"
 
-void Ux(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Ux(GridFunction& output, GridFunction& u, const PointType& h);
 
-void Uy(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Uy(GridFunction& output, GridFunction& u, const PointType& h);
 
-void Uxx(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Uxx(GridFunction& output, GridFunction& u, const PointType& h);
 
-void Uyy(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Uyy(GridFunction& output, GridFunction& u, const PointType& h);
 
-void Px(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Px(GridFunction& output, GridFunction& u, const PointType& h);
 
-void Vxx(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Py(GridFunction& output, GridFunction& u, const PointType& h);
 
-void Vyy(GridFunction& output, GridFunction& u, const RealType alpha,
-		const PointType& h);
+void Vxx(GridFunction& output, GridFunction& u, const PointType& h);
+
+void Vyy(GridFunction& output, GridFunction& u, const PointType& h);
 
 void UUx(GridFunction& output, GridFunction& u, const RealType alpha,
 		const PointType& h);
@@ -38,9 +33,9 @@ void UUx(GridFunction& output, GridFunction& u, const RealType alpha,
 void VVy(GridFunction& output, GridFunction& u, const RealType alpha,
 		const PointType& h);
 
-void UVy(GridFunction& output,GridFunction& u, GridFunction& v, const RealType alpha,
-		const PointType& h);
-void UVx(GridFunction& output,GridFunction& u, GridFunction& v, const RealType alpha,
-		const PointType& h);
+void UVy(GridFunction& output, GridFunction& u, GridFunction& v,
+		const RealType alpha, const PointType& h);
+void UVx(GridFunction& output, GridFunction& u, GridFunction& v,
+		const RealType alpha, const PointType& h);
 
 #endif /* DERIVATIVES_H_ */

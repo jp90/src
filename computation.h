@@ -23,7 +23,7 @@ public:
 	RealType computeTimesstep(RealType uMax, RealType vMax, const PointType& h,
 			RealType Re, RealType tau);
 	void computeNewVelocities(GridFunction& u, GridFunction& v,
-			GridFunction& f, GridFunction& g, GridFunctionType& p,
+			GridFunction& f, GridFunction& g, GridFunction& p,
 			const PointType& delta, RealType deltaT);
 
 

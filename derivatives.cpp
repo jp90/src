@@ -5,7 +5,7 @@
  */
 #include "derivatives.h"
 
-void Ux(GridFunction& output, GridFunction& u, const RealType alpha, const PointType& h) {
+void Ux(GridFunction& output, GridFunction& u, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -14,14 +14,13 @@ void Ux(GridFunction& output, GridFunction& u, const RealType alpha, const Point
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
 
-
 	Stencil stencil_1(3, h);
 	stencil_1.setUxStencil();
 	stencil_1.ApplyStencilOperator(begin, end, begin, end, u, output);
 
 }
 
-void Uy(GridFunction& output, GridFunction& u, const RealType alpha, const PointType& h) {
+void Uy(GridFunction& output, GridFunction& u, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -36,7 +35,7 @@ void Uy(GridFunction& output, GridFunction& u, const RealType alpha, const Point
 
 }
 
-void Uxx(GridFunction& output, GridFunction& u, const RealType alpha, const PointType& h) {
+void Uxx(GridFunction& output, GridFunction& u, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -44,7 +43,6 @@ void Uxx(GridFunction& output, GridFunction& u, const RealType alpha, const Poin
 	end[0] = u.griddimension[0] - 2;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
-
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUxxStencil();
@@ -52,7 +50,7 @@ void Uxx(GridFunction& output, GridFunction& u, const RealType alpha, const Poin
 
 }
 
-void Uyy(GridFunction& output, GridFunction& u, const RealType alpha, const PointType& h) {
+void Uyy(GridFunction& output, GridFunction& u, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -61,14 +59,13 @@ void Uyy(GridFunction& output, GridFunction& u, const RealType alpha, const Poin
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
 
-
 	Stencil stencil_1(3, h);
 	stencil_1.setUyyStencil();
 	stencil_1.ApplyStencilOperator(begin, end, begin, end, u, output);
 
 }
 
-void Px(GridFunction& output, GridFunction& p, const RealType alpha, const PointType& h) {
+void Px(GridFunction& output, GridFunction& p, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -77,14 +74,28 @@ void Px(GridFunction& output, GridFunction& p, const RealType alpha, const Point
 	begin[1] = 1;
 	end[1] = p.griddimension[1] - 2;
 
-
 	Stencil stencil_1(3, h);
 	stencil_1.setPxStencil();
 	stencil_1.ApplyStencilOperator(begin, end, begin, end, p, output);
 
 }
 
-void Vxx(GridFunction& output, GridFunction& v, const RealType alpha, const PointType& h) {
+void Py(GridFunction& output, GridFunction& p, const PointType& h) {
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = p.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = p.griddimension[1] - 2;
+
+	Stencil stencil_1(3, h);
+	stencil_1.setPyStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, p, output);
+
+}
+
+void Vxx(GridFunction& output, GridFunction& v, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -92,7 +103,6 @@ void Vxx(GridFunction& output, GridFunction& v, const RealType alpha, const Poin
 	end[0] = v.griddimension[0] - 2;
 	begin[1] = 1;
 	end[1] = v.griddimension[1] - 2;
-
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUxxStencil();
@@ -100,8 +110,7 @@ void Vxx(GridFunction& output, GridFunction& v, const RealType alpha, const Poin
 
 }
 
-void Vyy(GridFunction& output, GridFunction& v,
-		const RealType alpha, const PointType& h) {
+void Vyy(GridFunction& output, GridFunction& v, const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -110,15 +119,14 @@ void Vyy(GridFunction& output, GridFunction& v,
 	begin[1] = 1;
 	end[1] = v.griddimension[1] - 2;
 
-
 	Stencil stencil_1(3, h);
 	stencil_1.setUyyStencil();
 	stencil_1.ApplyStencilOperator(begin, end, begin, end, v, output);
 
 }
 
-void UUx(GridFunction& output, GridFunction& u,
-		const RealType alpha, const PointType& h) {
+void UUx(GridFunction& output, GridFunction& u, const RealType alpha,
+		const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -126,7 +134,6 @@ void UUx(GridFunction& output, GridFunction& u,
 	end[0] = u.griddimension[0] - 2;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
-
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUUx_1Stencil();
@@ -176,11 +183,10 @@ void UUx(GridFunction& output, GridFunction& u,
 
 	output.AddToGridFunction(begin, end, 1.0, branch_3);
 
-
 }
 
-void VVy(GridFunction& output, GridFunction& v,
-		const RealType alpha, const PointType& h) {
+void VVy(GridFunction& output, GridFunction& v, const RealType alpha,
+		const PointType& h) {
 
 	MultiIndexType begin, end;
 
@@ -188,7 +194,6 @@ void VVy(GridFunction& output, GridFunction& v,
 	end[0] = v.griddimension[0] - 2;
 	begin[1] = 1;
 	end[1] = v.griddimension[1] - 2;
-
 
 	Stencil stencil_1(3, h);
 	stencil_1.setVVy_1Stencil();
@@ -240,15 +245,14 @@ void VVy(GridFunction& output, GridFunction& v,
 
 }
 
-void UVx(GridFunction& output, GridFunction& u,
-		GridFunction& v, const RealType alpha, const PointType& h) {
+void UVx(GridFunction& output, GridFunction& u, GridFunction& v,
+		const RealType alpha, const PointType& h) {
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
 	end[0] = u.griddimension[0] - 2;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
-
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUVx_1Stencil();
@@ -300,15 +304,14 @@ void UVx(GridFunction& output, GridFunction& u,
 	output.AddToGridFunction(begin, end, 1.0, branch_5);
 }
 
-void UVy(GridFunction& output, GridFunction& u,
-		GridFunction& v, const RealType alpha, const PointType& h) {
+void UVy(GridFunction& output, GridFunction& u, GridFunction& v,
+		const RealType alpha, const PointType& h) {
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
 	end[0] = u.griddimension[0] - 2;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
-
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUVy_1Stencil();

@@ -21,12 +21,24 @@ RealType Computation::computeTimesstep(RealType uMax, RealType vMax,
 }
 
 void Computation::computeNewVelocities(GridFunction& u, GridFunction& v,
-		GridFunction& f, GridFunction& g, GridFunctionType& p,
+		GridFunction& f, GridFunction& g, GridFunction& p,
 		const PointType& delta, RealType deltaT) {
-//	GridFunction branch_1(p.griddimension);
-//	Px(branch_1,p,SimIO.para.alpha,h);
+	GridFunction branch_1(p.griddimension);
+	MultiIndexType begin, end;
+	begin[0] = 0;
+	end[0] = u.griddimension[0] - 1;
+	begin[1] = 0;
+	end[1] = u.griddimension[1] - 1;
+	// u Update
+	Px(branch_1, p, delta);
+	f.AddToGridFunction(begin, end, -SimIO.para.deltaT, branch_1);
+	u.AddToGridFunction(begin,end,1.0,f);
+	// v Update
+	GridFunction branch_2(p.griddimension);
+	Py(branch_2, p, delta);
+	g.AddToGridFunction(begin, end, -SimIO.para.deltaT, branch_2);
+	v.AddToGridFunction(begin,end,1.0,g);
 
-	u.A
 }
 ;
 
@@ -36,8 +48,7 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 
 	RealType alpha = SimIO.para.alpha;
 	RealType re = 0.5;
-	MultiIndexType begin, end, dim;
-	dim = u.griddimension;
+	MultiIndexType begin, end;
 	begin[0] = 0;
 	end[0] = u.griddimension[0] - 1;
 	begin[1] = 0;
@@ -45,10 +56,10 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 
 	// Term F
 
-	Uxx(f, u, alpha, h);
+	Uxx(f, u, h);
 
 	GridFunction branch_2(u.griddimension);
-	Uyy(branch_2, u, alpha, h);
+	Uyy(branch_2, u, h);
 	f.AddToGridFunction(begin, end, 1.0, branch_2);
 	f.ScaleGridFunction(begin, end, 1.0 / re);
 	GridFunction branch_3(u.griddimension);
@@ -67,9 +78,9 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 
 	//Term G
 
-	Vxx(g, v, alpha, h);
+	Vxx(g, v, h);
 	GridFunction branch_6(u.griddimension);
-	Vyy(branch_6, v, alpha, h);
+	Vyy(branch_6, v, h);
 	g.AddToGridFunction(begin, end, 1.0, branch_6);
 	g.ScaleGridFunction(begin, end, 1.0 / re);
 
@@ -102,7 +113,6 @@ void Computation::setBoundaryU(GridFunction& u) {
 	end[1] = u.griddimension[1] - 1;
 	u.SetGridFunction(begin, end, 0.0);
 
-
 	begin[0] = u.griddimension[0] - 1;
 	begin[1] = 0;
 	end[0] = u.griddimension[0] - 1;
@@ -111,8 +121,8 @@ void Computation::setBoundaryU(GridFunction& u) {
 
 	begin[0] = 0;
 	begin[1] = u.griddimension[1] - 1;
-	end[0] = u.griddimension[1] -1;
-	end[1] = u.griddimension[1] -1;
+	end[0] = u.griddimension[1] - 1;
+	end[1] = u.griddimension[1] - 1;
 	u.SetGridFunction(begin, end, SimIO.para.ui);
 }
 void Computation::setBoundaryV(GridFunction& v) {
@@ -129,7 +139,6 @@ void Computation::setBoundaryV(GridFunction& v) {
 	end[1] = v.griddimension[1] - 1;
 	v.SetGridFunction(begin, end, 0.0);
 
-
 	begin[0] = v.griddimension[0] - 1;
 	begin[1] = 0;
 	end[0] = v.griddimension[0] - 1;
@@ -138,8 +147,8 @@ void Computation::setBoundaryV(GridFunction& v) {
 
 	begin[0] = 0;
 	begin[1] = v.griddimension[1] - 1;
-	end[0] = v.griddimension[1] -1;
-	end[1] = v.griddimension[1] -1;
+	end[0] = v.griddimension[1] - 1;
+	end[1] = v.griddimension[1] - 1;
 	v.SetGridFunction(begin, end, 0.0);
 }
 void Computation::setBoundaryP(GridFunction& p) {
@@ -156,7 +165,6 @@ void Computation::setBoundaryP(GridFunction& p) {
 	end[1] = p.griddimension[1] - 1;
 	p.SetGridFunction(begin, end, 0.0);
 
-
 	begin[0] = p.griddimension[0] - 1;
 	begin[1] = 0;
 	end[0] = p.griddimension[0] - 1;
@@ -165,8 +173,8 @@ void Computation::setBoundaryP(GridFunction& p) {
 
 	begin[0] = 0;
 	begin[1] = p.griddimension[1] - 1;
-	end[0] = p.griddimension[1] -1;
-	end[1] = p.griddimension[1] -1;
+	end[0] = p.griddimension[1] - 1;
+	end[1] = p.griddimension[1] - 1;
 	p.SetGridFunction(begin, end, SimIO.para.pi);
 }
 void Computation::setBoundaryF(GridFunction& f) {
@@ -183,7 +191,6 @@ void Computation::setBoundaryF(GridFunction& f) {
 	end[1] = f.griddimension[1] - 1;
 	f.SetGridFunction(begin, end, 0.0);
 
-
 	begin[0] = f.griddimension[0] - 1;
 	begin[1] = 0;
 	end[0] = f.griddimension[0] - 1;
@@ -192,8 +199,8 @@ void Computation::setBoundaryF(GridFunction& f) {
 
 	begin[0] = 0;
 	begin[1] = f.griddimension[1] - 1;
-	end[0] = f.griddimension[1] -1;
-	end[1] = f.griddimension[1] -1;
+	end[0] = f.griddimension[1] - 1;
+	end[1] = f.griddimension[1] - 1;
 	f.SetGridFunction(begin, end, 0.0);
 }
 void Computation::setBoundaryG(GridFunction& g) {
@@ -210,7 +217,6 @@ void Computation::setBoundaryG(GridFunction& g) {
 	end[1] = g.griddimension[1] - 1;
 	g.SetGridFunction(begin, end, 0.0);
 
-
 	begin[0] = g.griddimension[0] - 1;
 	begin[1] = 0;
 	end[0] = g.griddimension[0] - 1;
@@ -219,8 +225,8 @@ void Computation::setBoundaryG(GridFunction& g) {
 
 	begin[0] = 0;
 	begin[1] = g.griddimension[1] - 1;
-	end[0] = g.griddimension[1] -1;
-	end[1] = g.griddimension[1] -1;
+	end[0] = g.griddimension[1] - 1;
+	end[1] = g.griddimension[1] - 1;
 	g.SetGridFunction(begin, end, 0.0);
 }
 

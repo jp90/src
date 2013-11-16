@@ -70,13 +70,18 @@ void Stencil::setUxStencil(){
 }
 void Stencil::setUyStencil(){
 	abs=false;
-	stencil[1][1]=1.0/h[0];
-	stencil[1][0]=-1.0/h[0];
+	stencil[1][1]=1.0/h[1];
+	stencil[1][0]=-1.0/h[1];
 }
 void Stencil::setPxStencil(){
 	abs=false;
 	stencil[2][1]=1.0/h[0];
 	stencil[1][1]=-1.0/h[0];
+}
+void Stencil::setPyStencil(){
+	abs=false;
+	stencil[1][2]=1.0/h[1];
+	stencil[1][1]=-1.0/h[1];
 }
 void Stencil::setUxxStencil(){
 	abs=false;

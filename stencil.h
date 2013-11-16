@@ -24,6 +24,7 @@ public:
 	void setUxStencil();
 	void setUyStencil();
 	void setPxStencil();
+	void setPyStencil();
 	void setUxxStencil();
 	void setUyyStencil();
 
