@@ -14,15 +14,24 @@ Computation::Computation(IO& SimIO) :
 		SimIO(SimIO) {
 }
 
-RealType Computation::computeTimesstep(RealType uMax, RealType vMax,
-		const PointType& h, RealType Re, RealType tau) {
+RealType Computation::computeTimesstep(RealType uMax, RealType vMax) {
+	RealType deltaT, min, c;
+	c = SimIO.para.re/(2.0*(1.0/(SimIO.para.deltaX*SimIO.para.deltaX) +1.0/(SimIO.para.deltaY*SimIO.para.deltaY) ));
+	if ( (c < SimIO.para.deltaX/uMax) && (c < SimIO.para.deltaY/vMax) )
+		min = c;
 
-	return 0.0;
+	else if ( (SimIO.para.deltaX/uMax < c) && (SimIO.para.deltaX/uMax < SimIO.para.deltaY/vMax) )
+		min = SimIO.para.deltaX/uMax;
+
+	else
+		min = SimIO.para.deltaY/vMax;
+
+	deltaT = SimIO.para.tau*min;
+	return deltaT;
 }
 
 void Computation::computeNewVelocities(GridFunction& u, GridFunction& v,
-		GridFunction& f, GridFunction& g, GridFunction& p,
-		const PointType& delta, RealType deltaT) {
+		GridFunction& f, GridFunction& g, GridFunction& p, RealType deltaT) {
 	GridFunction branch_1(p.griddimension);
 	MultiIndexType begin, end;
 	begin[0] = 0;
@@ -30,22 +39,27 @@ void Computation::computeNewVelocities(GridFunction& u, GridFunction& v,
 	begin[1] = 0;
 	end[1] = u.griddimension[1] - 1;
 	// u Update
+	PointType delta;
+	delta[0] = SimIO.para.deltaX;
+	delta[1] = SimIO.para.deltaY;
 	Px(branch_1, p, delta);
 	f.AddToGridFunction(begin, end, -SimIO.para.deltaT, branch_1);
-	u.AddToGridFunction(begin,end,1.0,f);
+	u.AddToGridFunction(begin, end, 1.0, f);
 	// v Update
 	GridFunction branch_2(p.griddimension);
 	Py(branch_2, p, delta);
 	g.AddToGridFunction(begin, end, -SimIO.para.deltaT, branch_2);
-	v.AddToGridFunction(begin,end,1.0,g);
+	v.AddToGridFunction(begin, end, 1.0, g);
 
 }
 ;
 
 void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 		GridFunction& u, GridFunction& v, GridFunction& gx, GridFunction& gy,
-		const PointType& h, RealType& deltaT) {
-
+		RealType& deltaT) {
+	PointType h;
+	h[0]=SimIO.para.deltaX;
+	h[1]=SimIO.para.deltaY;
 	RealType alpha = SimIO.para.alpha;
 	RealType re = 0.5;
 	MultiIndexType begin, end;

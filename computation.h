@@ -14,23 +14,18 @@
 
 #include "IO.hpp"
 
-
 class Computation {
 public:
 
 	Computation(IO& SimIO);
 
-	RealType computeTimesstep(RealType uMax, RealType vMax, const PointType& h,
-			RealType Re, RealType tau);
-	void computeNewVelocities(GridFunction& u, GridFunction& v,
-			GridFunction& f, GridFunction& g, GridFunction& p,
-			const PointType& delta, RealType deltaT);
+	RealType computeTimesstep(RealType uMax, RealType vMax);
+	void computeNewVelocities(GridFunction& u, GridFunction& v, GridFunction& f,
+			GridFunction& g, GridFunction& p,RealType deltaT);
 
-
-	void computeMomentumEquations(GridFunction& f, GridFunction& g, GridFunction& u,
-									 GridFunction& v, GridFunction& gx, GridFunction& gy,
-									 const PointType& h, RealType& deltaT );
-
+	void computeMomentumEquations(GridFunction& f, GridFunction& g,
+			GridFunction& u, GridFunction& v, GridFunction& gx,
+			GridFunction& gy, RealType& deltaT);
 
 	void setBoundaryU(GridFunction& u);
 	void setBoundaryV(GridFunction& v);
@@ -38,15 +33,11 @@ public:
 	void setBoundaryF(GridFunction& f);
 	void setBoundaryG(GridFunction& g);
 
-
-
-
 	void computeRighthandSide(const MultiIndexType& griddimension,
 			GridFunctionType& rhs, GridFunctionType& f, GridFunctionType& g,
 			const PointType& delta, RealType deltaT);
 
-
-    IO SimIO;
+	IO SimIO;
 
 };
 

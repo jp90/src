@@ -26,6 +26,8 @@ IO::readInputfile (char *filename)
 	 para.iMax=128;
 	 para.jMax=128;
 	 para.tEnd=16.5;
+	 para.deltaX=0.1;
+	 para.deltaY=0.1;
 	 para.deltaT=0;
 	 para.tau=0.5;
 	 para.deltaVec=1.4;
@@ -55,6 +57,8 @@ IO::readInputfile (char *filename)
 		  if (!before_equ.compare("tEnd")) para.tEnd = atof(after_equ.c_str());
 		  if (!before_equ.compare("tau")) para.tau = atof(after_equ.c_str());
 		  if (!before_equ.compare("deltaT")) para.deltaT = atof(after_equ.c_str());
+		  if (!before_equ.compare("deltaX")) para.deltaX = atof(after_equ.c_str());
+		  if (!before_equ.compare("deltaY")) para.deltaY = atof(after_equ.c_str());
 		  if (!before_equ.compare("deltaVec")) para.deltaVec = atof(after_equ.c_str());
 		  if (!before_equ.compare("iterMax")) para.iterMax = atof(after_equ.c_str());
 		  if (!before_equ.compare("eps")) para.eps = atof(after_equ.c_str());
