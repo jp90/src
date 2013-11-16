@@ -12,8 +12,6 @@
 #ifndef COMPUTATION_H_
 #define COMPUTATION_H_
 
-#include "IO.hpp"
-
 class Computation {
 public:
 
@@ -21,7 +19,7 @@ public:
 
 	RealType computeTimesstep(RealType uMax, RealType vMax);
 	void computeNewVelocities(GridFunction& u, GridFunction& v, GridFunction& f,
-			GridFunction& g, GridFunction& p,RealType deltaT);
+			GridFunction& g, GridFunction& p, RealType deltaT);
 
 	void computeMomentumEquations(GridFunction& f, GridFunction& g,
 			GridFunction& u, GridFunction& v, GridFunction& gx,

@@ -21,8 +21,6 @@ public:
 
 	~GridFunction();
 
-
-
 	GridFunctionType getGridFunction();
 
 	void SetGridFunction(const MultiIndexType& begin, const MultiIndexType& end,
@@ -50,7 +48,6 @@ public:
 
 	GridFunctionType gridfunction;
 	MultiIndexType griddimension;
-
 
 };
 

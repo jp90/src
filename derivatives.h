@@ -23,6 +23,10 @@ void Px(GridFunction& output, GridFunction& u, const PointType& h);
 
 void Py(GridFunction& output, GridFunction& u, const PointType& h);
 
+void Pxx(GridFunction& output, GridFunction& p, const PointType& h);
+
+void Pyy(GridFunction& output, GridFunction& p, const PointType& h);
+
 void Vxx(GridFunction& output, GridFunction& u, const PointType& h);
 
 void Vyy(GridFunction& output, GridFunction& u, const PointType& h);

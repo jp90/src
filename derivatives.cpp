@@ -94,7 +94,34 @@ void Py(GridFunction& output, GridFunction& p, const PointType& h) {
 	stencil_1.ApplyStencilOperator(begin, end, begin, end, p, output);
 
 }
+void Pxx(GridFunction& output, GridFunction& p, const PointType& h) {
 
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = p.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = p.griddimension[1] - 2;
+
+	Stencil stencil_1(3, h);
+	stencil_1.setPxxStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, p, output);
+
+}
+void Pyy(GridFunction& output, GridFunction& p, const PointType& h) {
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = p.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = p.griddimension[1] - 2;
+
+	Stencil stencil_1(3, h);
+	stencil_1.setPyyStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, p, output);
+
+}
 void Vxx(GridFunction& output, GridFunction& v, const PointType& h) {
 
 	MultiIndexType begin, end;

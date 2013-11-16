@@ -16,17 +16,21 @@ Computation::Computation(IO& SimIO) :
 
 RealType Computation::computeTimesstep(RealType uMax, RealType vMax) {
 	RealType deltaT, min, c;
-	c = SimIO.para.re/(2.0*(1.0/(SimIO.para.deltaX*SimIO.para.deltaX) +1.0/(SimIO.para.deltaY*SimIO.para.deltaY) ));
-	if ( (c < SimIO.para.deltaX/uMax) && (c < SimIO.para.deltaY/vMax) )
+	c = SimIO.para.re
+			/ (2.0
+					* (1.0 / (SimIO.para.deltaX * SimIO.para.deltaX)
+							+ 1.0 / (SimIO.para.deltaY * SimIO.para.deltaY)));
+	if ((c < SimIO.para.deltaX / uMax) && (c < SimIO.para.deltaY / vMax))
 		min = c;
 
-	else if ( (SimIO.para.deltaX/uMax < c) && (SimIO.para.deltaX/uMax < SimIO.para.deltaY/vMax) )
-		min = SimIO.para.deltaX/uMax;
+	else if ((SimIO.para.deltaX / uMax < c)
+			&& (SimIO.para.deltaX / uMax < SimIO.para.deltaY / vMax))
+		min = SimIO.para.deltaX / uMax;
 
 	else
-		min = SimIO.para.deltaY/vMax;
+		min = SimIO.para.deltaY / vMax;
 
-	deltaT = SimIO.para.tau*min;
+	deltaT = SimIO.para.tau * min;
 	return deltaT;
 }
 
@@ -58,8 +62,8 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 		GridFunction& u, GridFunction& v, GridFunction& gx, GridFunction& gy,
 		RealType& deltaT) {
 	PointType h;
-	h[0]=SimIO.para.deltaX;
-	h[1]=SimIO.para.deltaY;
+	h[0] = SimIO.para.deltaX;
+	h[1] = SimIO.para.deltaY;
 	RealType alpha = SimIO.para.alpha;
 	RealType re = 0.5;
 	MultiIndexType begin, end;

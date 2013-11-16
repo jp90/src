@@ -11,8 +11,6 @@
 
 using namespace std;
 
-
-
 GridFunction::GridFunction(int dimX, int dimY) {
 	griddimension[0] = dimX;
 	griddimension[1] = dimY;
