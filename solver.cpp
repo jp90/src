@@ -51,7 +51,7 @@ RealType Solver::computeResidual(GridFunction& sourcegridfunction,
 //	cout << res;
 	it++;
 }
-return 0.0;
+return res;
 
 }
 void Solver::SORCycle(GridFunction* gridfunction, GridFunctionType& rhs,
