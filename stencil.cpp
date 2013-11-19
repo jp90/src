@@ -248,4 +248,13 @@ void Stencil::setUVy_8Stencil(){
 	stencil[1][0]=1.0/2.0;
 	stencil[1][1]=-1.0/2.0;
 }
-
+void Stencil::setFxStencil(){
+	abs=false;
+	stencil[1][1]=1.0/h[0];
+	stencil[0][1]=-1.0/h[0];
+}
+void Stencil::setGyStencil(){
+	abs=false;
+	stencil[1][1]=1.0/h[1];
+	stencil[1][0]=-1.0/h[1];
+}

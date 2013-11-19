@@ -32,7 +32,7 @@ public:
 	void setBoundaryG(GridFunction& g);
 
 	void computeRighthandSide(const MultiIndexType& griddimension,
-			GridFunctionType& rhs, GridFunctionType& f, GridFunctionType& g,
+			GridFunction& rhs, GridFunction& f, GridFunction& g,
 			const PointType& delta, RealType deltaT);
 
 	IO SimIO;

@@ -249,8 +249,22 @@ void Computation::setBoundaryG(GridFunction& g) {
 }
 
 void Computation::computeRighthandSide(const MultiIndexType& griddimension,
-		GridFunctionType& rhs, GridFunctionType& f, GridFunctionType& g,
+		GridFunction& rhs, GridFunction& f, GridFunction& g,
 		const PointType& delta, RealType deltaT) {
+
+	GridFunction branch_1(g.griddimension);
+
+	MultiIndexType begin, end;
+	begin[0] = 0;
+	end[0] = f.griddimension[0] - 1;
+	begin[1] = 0;
+	end[1] = f.griddimension[1] - 1;
+
+	Fx(rhs, f, delta);
+	Gy(branch_1, g, delta);
+
+	rhs.AddToGridFunction(begin, end, 1.0, branch_1);
+	rhs.ScaleGridFunction(begin, end, 1.0/deltaT);
 
 }
 

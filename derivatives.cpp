@@ -389,3 +389,32 @@ void UVy(GridFunction& output, GridFunction& u, GridFunction& v,
 	output.AddToGridFunction(begin, end, 1.0, branch_5);
 }
 
+void Fx(GridFunction& output, GridFunction& f, const PointType& h) {
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = f.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = f.griddimension[1] - 2;
+
+	Stencil stencil_1(3, h);
+	stencil_1.setFxStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, f, output);
+
+}
+
+void Gy(GridFunction& output, GridFunction& g, const PointType& h) {
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = g.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = g.griddimension[1] - 2;
+
+	Stencil stencil_1(3, h);
+	stencil_1.setGyStencil();
+	stencil_1.ApplyStencilOperator(begin, end, begin, end, g, output);
+
+}
