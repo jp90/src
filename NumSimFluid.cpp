@@ -26,31 +26,20 @@ int main() {
 
 	//initialize u,v,p
 	MultiIndexType begin, end;
-
+	//Initialize u-velocity
 	begin[0] = 0;
 	end[0] = SimIO.para.iMax - 1;
 	begin[1] = 0;
 	end[1] = SimIO.para.jMax - 1;
 	GridFunction u(SimIO.para.iMax, SimIO.para.jMax);
-/*
 	u.SetGridFunction(begin, end, SimIO.para.ui);
-	begin[0] = 2;
-	end[0] = SimIO.para.iMax - 3;
-	begin[1] = 2;
-	end[1] = SimIO.para.jMax - 3;
-	u.SetGridFunction(begin, end, 2.0); */
-
+	//Initialize v-velocity
 	GridFunction v(SimIO.para.iMax, SimIO.para.jMax);
 	v.SetGridFunction(begin, end, SimIO.para.vi);
-	//v.Grid_Print();
 
+	//Initialize pressure
 	GridFunction p(SimIO.para.iMax, SimIO.para.jMax);
 	p.SetGridFunction(begin, end, SimIO.para.pi);
-	begin[0] = 2;
-	end[0] = SimIO.para.iMax - 3;
-	begin[1] = 2;
-	end[1] = SimIO.para.jMax - 3;
-	p.SetGridFunction(begin, end, 2.0);
 
 
 	GridFunction gx(u.griddimension);
@@ -59,49 +48,49 @@ int main() {
 	GridFunction g(u.griddimension);
 	GridFunction f(u.griddimension);
 
+	GridFunction rhs(p.griddimension);
+
 	Computation computer(SimIO);
 	Solver solve(SimIO);
-//	u.Grid_Print();
-//	computer.setBoundaryG(u);
-//	u.Grid_Print();
 
+	PointType delta;
 
+	delta[0]=SimIO.para.deltaX;
+	delta[1]=SimIO.para.deltaY;
+	//Start Main Loop
 	while (t < SimIO.para.tEnd) {
+
+		SimIO.writeVTKFile(u.griddimension,u.getGridFunction(),v.getGridFunction(),p.getGridFunction(),delta,n);
+
 		// compute timestep size deltaT
 		RealType uMax = u.MaxValueGridFunction(begin, end);
 		RealType vMax = v.MaxValueGridFunction(begin, end);
 		RealType deltaT = computer.computeTimesstep(uMax, vMax);
-		// set boundary values?!
-
+		// set boundary values
+		computer.setBoundaryU(u);
+		computer.setBoundaryV(v);
 		// Compute F and G
 		computer.computeMomentumEquations(f, g, u, v, gx, gy, deltaT);
+
 		// set right hand side of p equation
+		computer.computeRighthandSide(rhs,f,g,deltaT);
 
-		// als test rhs = 0 Matrix
-		GridFunction rhs(p.griddimension);
-		// FEHLT compute rhs;
-
-		//SOLVER
-		//------
+		//SOR-SOLVER
 		int it =0;
 		RealType Residuum = SimIO.para.eps+1.0;
-		while ((it < SimIO.para.iterMax) && (res > SimIO.para.eps)) {
+		while ((it < SimIO.para.iterMax) && (Residuum > SimIO.para.eps)) {
             cout << "Computing pressure" <<endl;
-            //FEHLT: Randwert
-
+            //Set boundary
+            computer.setBoundaryP(p);
+            // SOR Cycle
             solve.SORCycle(p,rhs);
 
-			RealType Residuum = solve.computeResidual(p,rhs);
+			Residuum = solve.computeResidual(p,rhs);
+			cout << "Current Residum: ";
 			cout << Residuum<<endl;
 			it++;
 		}
 
-
-
-			// compute residuum in solver
-
-
-        cout << Residuum<<endl;
 		// Update velocites u and v
 		computer.computeNewVelocities(u, v, f, g, p, deltaT);
 		n++;

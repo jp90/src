@@ -56,14 +56,14 @@ RealType Solver::computeResidual(GridFunction& p,
 void Solver::SORCycle(GridFunction& p, GridFunction& rhs) {
 
 
-	for (int i = 0; i<SimIO.para.iMax;i++){
-		for(int j=0; j<SimIO.para.jMax;j++){
+	for (int i = 1; i<SimIO.para.iMax-1;i++){
+		for(int j=1; j<SimIO.para.jMax-1;j++){
 
 			p.getGridFunction()[i][j] = (1-SimIO.para.omg)*p.getGridFunction()[i][j] +
 						(SimIO.para.omg)/(2.0*(1.0/(SimIO.para.deltaX*SimIO.para.deltaX) + 1.0/(SimIO.para.deltaX*SimIO.para.deltaX)))*
 						((p.getGridFunction()[i+1][j]+p.getGridFunction()[i-1][j])/(SimIO.para.deltaX*SimIO.para.deltaX) +
 						(p.getGridFunction()[i][j+1]+p.getGridFunction()[i][j-1])/(SimIO.para.deltaX*SimIO.para.deltaX)
-						- rhs[i][j]);
+						- rhs.getGridFunction()[i][j]);
 
 
 		}
