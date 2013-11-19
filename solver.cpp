@@ -13,7 +13,7 @@ using namespace std;
 Solver::Solver(IO& SimIO) :
 		SimIO(SimIO) {
 }
-RealType Solver::computeResidual(GridFunction& sourcegridfunction,
+RealType Solver::computeResidual(GridFunction& p,
 		GridFunction& rhs) {
 	PointType delta;
 	delta[0] = SimIO.para.deltaX;
@@ -21,17 +21,17 @@ RealType Solver::computeResidual(GridFunction& sourcegridfunction,
 
 	MultiIndexType begin, end;
 	begin[0] = 1;
-	end[0] = sourcegridfunction.griddimension[0] - 2;
+	end[0] = p.griddimension[0] - 2;
 	begin[1] = 1;
-	end[1] = sourcegridfunction.griddimension[1] - 2;
-	//while ((it < SimIO.para.iterMax) && (res > SimIO.para.eps)) {
-	GridFunction branch_1(sourcegridfunction.griddimension);
+	end[1] = p.griddimension[1] - 2;
+
+	GridFunction branch_1(p.griddimension);
 	//branch_1.Grid_Print();
-	Pxx(branch_1, sourcegridfunction, delta);
+	Pxx(branch_1, p, delta);
 	//branch_1.Grid_Print();
-	GridFunction branch_2(sourcegridfunction.griddimension);
+	GridFunction branch_2(p.griddimension);
 	//branch_2.Grid_Print();
-	Pyy(branch_2, sourcegridfunction, delta);
+	Pyy(branch_2, p, delta);
 	//branch_2.Grid_Print();
 
 	branch_1.AddToGridFunction(begin, end, 1.0, branch_2);
@@ -53,7 +53,22 @@ RealType Solver::computeResidual(GridFunction& sourcegridfunction,
 	return sqrt(res);
 
 }
-void Solver::SORCycle(GridFunction* gridfunction, GridFunctionType& rhs,
-		const PointType& delta, RealType omega) {
+void Solver::SORCycle(GridFunction& p, GridFunction& rhs) {
+
+
+	for (int i = 0; i<SimIO.para.iMax;i++){
+		for(int j=0; j<SimIO.para.jMax;j++){
+
+			p.getGridFunction()[i][j] = (1-SimIO.para.omg)*p.getGridFunction()[i][j] +
+						(SimIO.para.omg)/(2.0*(1.0/(SimIO.para.deltaX*SimIO.para.deltaX) + 1.0/(SimIO.para.deltaX*SimIO.para.deltaX)))*
+						((p.getGridFunction()[i+1][j]+p.getGridFunction()[i-1][j])/(SimIO.para.deltaX*SimIO.para.deltaX) +
+						(p.getGridFunction()[i][j+1]+p.getGridFunction()[i][j-1])/(SimIO.para.deltaX*SimIO.para.deltaX)
+						- rhs[i][j]);
+
+
+		}
+	}
+
+
 
 }

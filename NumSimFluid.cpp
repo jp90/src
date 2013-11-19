@@ -79,9 +79,28 @@ int main() {
 
 		// als test rhs = 0 Matrix
 		GridFunction rhs(p.griddimension);
-		// compute residuum in solver
+		// FEHLT compute rhs;
 
-		RealType Residuum = solve.computeResidual(p,rhs);
+		//SOLVER
+		//------
+		int it =0;
+		RealType Residuum = SimIO.para.eps+1.0;
+		while ((it < SimIO.para.iterMax) && (res > SimIO.para.eps)) {
+            cout << "Computing pressure" <<endl;
+            //FEHLT: Randwert
+
+            solve.SORCycle(p,rhs);
+
+			RealType Residuum = solve.computeResidual(p,rhs);
+			cout << Residuum<<endl;
+			it++;
+		}
+
+
+
+			// compute residuum in solver
+
+
         cout << Residuum<<endl;
 		// Update velocites u and v
 		computer.computeNewVelocities(u, v, f, g, p, deltaT);

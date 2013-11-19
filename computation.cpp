@@ -119,55 +119,70 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 
 void Computation::setBoundaryU(GridFunction& u) {
 	MultiIndexType begin, end;
+
+	// u_0,j = 0
 	begin[0] = 0;
+	end[0] = 0;
 	begin[1] = 0;
+	end[1] = u.griddimension[1] - 1;
+	u.SetGridFunction(begin, end, 0.0);
+
+	// u_iMax,j = 0
+	begin[0] = u.griddimension[0] - 1;
 	end[0] = u.griddimension[0] - 1;
+	begin[1] = 0;
+	end[1] = u.griddimension[1] - 1;
+	u.SetGridFunction(begin, end, 0.0);
+
+
+	// u_i,0
+	begin[0] = 0;
+	end[0] = u.griddimension[0] - 1;
+	begin[1] = 0;
 	end[1] = 0;
 	u.SetGridFunction(begin, end, 0.0);
 
+	// u_i,jMax
 	begin[0] = 0;
-	begin[1] = 0;
-	end[0] = 0;
-	end[1] = u.griddimension[1] - 1;
-	u.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = u.griddimension[0] - 1;
-	begin[1] = 0;
-	end[0] = u.griddimension[0] - 1;
-	end[1] = u.griddimension[1] - 1;
-	u.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = 0;
-	begin[1] = u.griddimension[1] - 1;
 	end[0] = u.griddimension[1] - 1;
+	begin[1] = u.griddimension[1] - 1;
 	end[1] = u.griddimension[1] - 1;
 	u.SetGridFunction(begin, end, SimIO.para.ui);
+
 }
 void Computation::setBoundaryV(GridFunction& v) {
 	MultiIndexType begin, end;
+
+	// v_0,j = 0
 	begin[0] = 0;
+	end[0] = 0;
 	begin[1] = 0;
+	end[1] = v.griddimension[1] - 1;
+	v.SetGridFunction(begin, end, 0.0);
+
+	// v_iMax,j = 0
+	begin[0] = v.griddimension[0] - 1;
 	end[0] = v.griddimension[0] - 1;
+	begin[1] = 0;
+	end[1] = v.griddimension[1] - 1;
+	v.SetGridFunction(begin, end, 0.0);
+
+
+	// v_i,0
+	begin[0] = 0;
+	end[0] = v.griddimension[0] - 1;
+	begin[1] = 0;
 	end[1] = 0;
 	v.SetGridFunction(begin, end, 0.0);
 
+	// v_i,jMax
 	begin[0] = 0;
-	begin[1] = 0;
-	end[0] = 0;
-	end[1] = v.griddimension[1] - 1;
-	v.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = v.griddimension[0] - 1;
-	begin[1] = 0;
-	end[0] = v.griddimension[0] - 1;
-	end[1] = v.griddimension[1] - 1;
-	v.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = 0;
-	begin[1] = v.griddimension[1] - 1;
 	end[0] = v.griddimension[1] - 1;
+	begin[1] = v.griddimension[1] - 1;
 	end[1] = v.griddimension[1] - 1;
 	v.SetGridFunction(begin, end, 0.0);
+
+
 }
 void Computation::setBoundaryP(GridFunction& p) {
 	MultiIndexType begin, end;

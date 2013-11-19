@@ -15,10 +15,9 @@ class Solver {
 public:
 
 	Solver(IO& SimIO);
-	RealType computeResidual(GridFunction& sourcegridfunction,
+	RealType computeResidual(GridFunction& p,
 			GridFunction& rhs);
-	void SORCycle(GridFunction* gridfunction, GridFunctionType& rhs,
-			const PointType& delta, RealType omega);
+	void SORCycle(GridFunction& p, GridFunction& rhs);
 
 	IO SimIO;
 };
