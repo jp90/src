@@ -134,7 +134,6 @@ void Computation::setBoundaryU(GridFunction& u) {
 	end[1] = u.griddimension[1] - 1;
 	u.SetGridFunction(begin, end, 0.0);
 
-
 	// u_i,0
 	begin[0] = 0;
 	end[0] = u.griddimension[0] - 1;
@@ -143,7 +142,7 @@ void Computation::setBoundaryU(GridFunction& u) {
 	MultiIndexType Offset;
 	Offset[0] = 0;
 	Offset[1] = 1;
-	u.SetGridFunction(begin, end, -1.0,Offset);
+	u.SetGridFunction(begin, end, -1.0, Offset);
 
 	// u_i,jMax
 	begin[0] = 0;
@@ -152,8 +151,7 @@ void Computation::setBoundaryU(GridFunction& u) {
 	end[1] = u.griddimension[1] - 1;
 	Offset[0] = 0;
 	Offset[1] = -1;
-	u.SetGridFunction(begin, end, -1.0,u,Offset,2.0);
-
+	u.SetGridFunction(begin, end, -1.0, u, Offset, 2.0);
 
 }
 void Computation::setBoundaryV(GridFunction& v) {
@@ -167,7 +165,7 @@ void Computation::setBoundaryV(GridFunction& v) {
 	MultiIndexType Offset;
 	Offset[0] = 1;
 	Offset[1] = 0;
-	v.SetGridFunction(begin, end, -1.0,Offset);
+	v.SetGridFunction(begin, end, -1.0, Offset);
 
 	// v_iMax,j = -v_iMax-1,j
 	begin[0] = v.griddimension[0] - 1;
@@ -175,10 +173,8 @@ void Computation::setBoundaryV(GridFunction& v) {
 	begin[1] = 0;
 	end[1] = v.griddimension[1] - 1;
 	Offset[0] = -1;
-    Offset[1] = 0;
-	v.SetGridFunction(begin, end, -1.0,Offset);
-
-
+	Offset[1] = 0;
+	v.SetGridFunction(begin, end, -1.0, Offset);
 
 	// v_i,0 = 0
 	begin[0] = 0;
@@ -194,7 +190,6 @@ void Computation::setBoundaryV(GridFunction& v) {
 	end[1] = v.griddimension[1] - 1;
 	v.SetGridFunction(begin, end, 0.0);
 
-
 }
 void Computation::setBoundaryP(GridFunction& p) {
 	MultiIndexType begin, end;
@@ -206,7 +201,7 @@ void Computation::setBoundaryP(GridFunction& p) {
 	MultiIndexType Offset;
 	Offset[0] = 1;
 	Offset[1] = 0;
-	p.SetGridFunction(begin, end, 1.0,Offset);
+	p.SetGridFunction(begin, end, 1.0, Offset);
 
 	// p_iMax+1,j = p_iMax,j
 	begin[0] = p.griddimension[0] - 1;
@@ -215,8 +210,7 @@ void Computation::setBoundaryP(GridFunction& p) {
 	end[1] = p.griddimension[1] - 1;
 	Offset[0] = -1;
 	Offset[1] = 0;
-	p.SetGridFunction(begin, end, 1.0,Offset);
-
+	p.SetGridFunction(begin, end, 1.0, Offset);
 
 	// p_i,0 = p_i,1
 	begin[0] = 0;
@@ -225,7 +219,7 @@ void Computation::setBoundaryP(GridFunction& p) {
 	end[1] = 0;
 	Offset[0] = 0;
 	Offset[1] = 1;
-	p.SetGridFunction(begin, end, 1.0,Offset);
+	p.SetGridFunction(begin, end, 1.0, Offset);
 
 	// p_i,jMax+1 = p_i,jMax
 	begin[0] = 0;
@@ -234,57 +228,58 @@ void Computation::setBoundaryP(GridFunction& p) {
 	end[1] = p.griddimension[1] - 1;
 	Offset[0] = 0;
 	Offset[1] = -1;
-	p.SetGridFunction(begin, end, 1.0,Offset);
+	p.SetGridFunction(begin, end, 1.0, Offset);
 
-	}
-void Computation::setBoundaryF(GridFunction& f,GridFunction& u) {
+}
+void Computation::setBoundaryF(GridFunction& f, GridFunction& u) {
 	MultiIndexType begin, end;
 	begin[0] = 0;
 	begin[1] = 0;
 	end[0] = 0;
 	end[1] = f.griddimension[0] - 1;
-	f.SetGridFunction(begin, end, 1.0,u);
+	f.SetGridFunction(begin, end, 1.0, u);
 
 	begin[0] = f.griddimension[0] - 2;
 	begin[1] = f.griddimension[0] - 2;
 	end[0] = 0;
 	end[1] = f.griddimension[0] - 1;
-	f.SetGridFunction(begin, end, 1.0,u);
+	f.SetGridFunction(begin, end, 1.0, u);
 }
-void Computation::setBoundaryG(GridFunction& g,GridFunction& v) {
+void Computation::setBoundaryG(GridFunction& g, GridFunction& v) {
 
 	MultiIndexType begin, end;
 	begin[0] = 0;
-	begin[1] = g.griddimension[0]-1;
+	begin[1] = g.griddimension[0] - 1;
 	end[0] = 0;
 	end[1] = 0;
-	g.SetGridFunction(begin, end, 1.0,v);
+	g.SetGridFunction(begin, end, 1.0, v);
 
 	begin[0] = 0;
-	begin[1] = g.griddimension[0]-1;
-	end[0] = g.griddimension[1]-2;
-	end[1] = g.griddimension[1]-2;
-	g.SetGridFunction(begin, end, 1.0,v);
+	begin[1] = g.griddimension[0] - 1;
+	end[0] = g.griddimension[1] - 2;
+	end[1] = g.griddimension[1] - 2;
+	g.SetGridFunction(begin, end, 1.0, v);
 }
 
-void Computation::computeRighthandSide(GridFunction& rhs, GridFunction& f, GridFunction& g,
-										RealType deltaT) {
+void Computation::computeRighthandSide(GridFunction& rhs, GridFunction& f,
+		GridFunction& g, RealType deltaT) {
 
 	GridFunction branch_1(g.griddimension);
 
 	MultiIndexType begin, end;
-	begin[0] = 0;
-	end[0] = f.griddimension[0] - 1;
-	begin[1] = 0;
-	end[1] = f.griddimension[1] - 1;
-    PointType delta;
-    delta[0]=SimIO.para.deltaX;
-    delta[1]=SimIO.para.deltaY;
-    Fx(rhs, f, delta);
+
+	begin[0] = 1;
+	end[0] = f.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = f.griddimension[1] - 2;
+	PointType delta;
+	delta[0] = SimIO.para.deltaX;
+	delta[1] = SimIO.para.deltaY;
+	Fx(rhs, f, delta);
 	Gy(branch_1, g, delta);
 
 	rhs.AddToGridFunction(begin, end, 1.0, branch_1);
-	rhs.ScaleGridFunction(begin, end, 1.0/deltaT);
+	rhs.ScaleGridFunction(begin, end, 1.0 / deltaT);
 
 }
 

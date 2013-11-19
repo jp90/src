@@ -54,7 +54,8 @@ int main() {
 	Solver solve(SimIO);
 
 	PointType delta;
-
+    //computer.setBoundaryU(u);
+    //u.Grid_Print();
 	delta[0]=SimIO.para.deltaX;
 	delta[1]=SimIO.para.deltaY;
 	//Start Main Loop
@@ -94,6 +95,7 @@ int main() {
 		// Update velocites u and v
 		computer.computeNewVelocities(u, v, f, g, p, deltaT);
 		n++;
+		cout << "t= " << t<< endl;
 		t += deltaT;
 	}
 	cout << "laeuft!";
