@@ -81,8 +81,8 @@ int main() {
 		GridFunction rhs(p.griddimension);
 		// compute residuum in solver
 
-		solve.computeResidual(p,rhs);
-
+		RealType Residuum = solve.computeResidual(p,rhs);
+        cout << Residuum<<endl;
 		// Update velocites u and v
 		computer.computeNewVelocities(u, v, f, g, p, deltaT);
 		n++;
