@@ -17,6 +17,8 @@ struct simparam {
 	int	  jMax;
 	RealType tEnd;
 	RealType deltaT;
+	RealType deltaX;
+	RealType deltaY;
 	RealType tau;
 	RealType deltaVec;
 	int   iterMax;

@@ -6,30 +6,37 @@
  */
 
 #include "gridfunction.h"
+#include "derivatives.h"
+#include "IO.hpp"
 
 #ifndef COMPUTATION_H_
 #define COMPUTATION_H_
 
 class Computation {
+public:
 
-	RealType computeTimesstep(RealType uMax, RealType vMax, const PointType& h, RealType Re, RealType tau);
-	void computeNewVelocities(Gridfunction* u, Gridfunction* v, GridFunctionType& f, GridFunctionType& g,
-			                     GridFunctionType& p, const PointType& delta, RealType deltaT);
+	Computation(IO& SimIO);
 
-	void computeMomentumEquations(Gridfunction* f, GridFunctionType* g, GridFunctionType* u,
-									 GridFunctionType* v, GridFunctionType& gx, GridFunctionType& gy,
-									 const PointType& h, RealType deltaT);
+	RealType computeTimesstep(RealType uMax, RealType vMax);
+	void computeNewVelocities(GridFunction& u, GridFunction& v, GridFunction& f,
+			GridFunction& g, GridFunction& p, RealType deltaT);
 
-	void setBounderyX(Gridfunction x);
-	void computeRighthandSide(const MultiIndexType& griddimension, GridFunctionType& rhs, GridFunctionType& f,
-		                        GridFunctionType& g, const PointType& delta, RealType deltaT);
+	void computeMomentumEquations(GridFunction& f, GridFunction& g,
+			GridFunction& u, GridFunction& v, GridFunction& gx,
+			GridFunction& gy, RealType& deltaT);
 
+	void setBoundaryU(GridFunction& u);
+	void setBoundaryV(GridFunction& v);
+	void setBoundaryP(GridFunction& p);
+	void setBoundaryF(GridFunction& f);
+	void setBoundaryG(GridFunction& g);
 
+	void computeRighthandSide(const MultiIndexType& griddimension,
+			GridFunctionType& rhs, GridFunctionType& f, GridFunctionType& g,
+			const PointType& delta, RealType deltaT);
 
-
+	IO SimIO;
 
 };
-
-
 
 #endif /* COMPUTATION_H_ */
