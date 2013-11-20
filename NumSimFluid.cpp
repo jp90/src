@@ -22,25 +22,24 @@ int main() {
 	IO SimIO(input, output);
 
 	IndexType n = 0;
-	RealType t = 0;
+	RealType t = 0.0;
 
 	//initialize u,v,p
 	MultiIndexType begin, end;
 	//Initialize u-velocity
-	begin[0] = 0;
-	end[0] = SimIO.para.iMax - 1;
-	begin[1] = 0;
-	end[1] = SimIO.para.jMax - 1;
-	GridFunction u(SimIO.para.iMax, SimIO.para.jMax);
+	begin[0] = 1;
+	end[0] = SimIO.para.iMax - 1+1;
+	begin[1] = 1;
+	end[1] = SimIO.para.jMax - 1+1;
+	GridFunction u(SimIO.para.iMax+2, SimIO.para.jMax+2);
 	u.SetGridFunction(begin, end, SimIO.para.ui);
 	//Initialize v-velocity
-	GridFunction v(SimIO.para.iMax, SimIO.para.jMax);
+	GridFunction v(SimIO.para.iMax+2, SimIO.para.jMax+2);
 	v.SetGridFunction(begin, end, SimIO.para.vi);
-
+	v.Grid_Print();
 	//Initialize pressure
-	GridFunction p(SimIO.para.iMax, SimIO.para.jMax);
+	GridFunction p(SimIO.para.iMax+2, SimIO.para.jMax+2);
 	p.SetGridFunction(begin, end, SimIO.para.pi);
-
 
 	GridFunction gx(u.griddimension);
 	GridFunction gy(u.griddimension);
@@ -89,6 +88,7 @@ int main() {
 			Residuum = solve.computeResidual(p,rhs);
 			cout << "Current Residum: ";
 			cout << Residuum<<endl;
+			cout << "it= "<<it << "n="<<n<< endl;
 			it++;
 		}
 
