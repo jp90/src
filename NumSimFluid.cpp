@@ -77,7 +77,7 @@ int main() {
 
 
 int count=0;
-	while ((t < SimIO.para.tEnd) &&(count<2000)){
+	while ((t < SimIO.para.tEnd)){
 
 		SimIO.writeVTKFile(u.griddimension,u.getGridFunction(),v.getGridFunction(),p.getGridFunction(),delta,n);
 
