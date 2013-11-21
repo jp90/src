@@ -111,12 +111,12 @@ int count=0;
 
 		// set right hand side of p equation
 		computer.computeRighthandSide(rhs,f,g,deltaT);
-
+	//	rhs.Grid_Print();
 		//SOR-SOLVER
 		int it =0;
 		RealType Residuum = SimIO.para.eps+1.0;
 		while ((it < SimIO.para.iterMax) && (Residuum > SimIO.para.eps)) {
-            cout << "Computing pressure" <<endl;
+      //      cout << "Computing pressure" <<endl;
             //Set boundary
             computer.setBoundaryP(p);
             // SOR Cycle
