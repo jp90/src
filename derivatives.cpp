@@ -4,6 +4,8 @@
  *      Author: jan-philippwolf
  */
 #include "derivatives.h"
+#include <iostream>
+using namespace std;
 
 void Ux(GridFunction& output, GridFunction& u, const PointType& h) {
 
@@ -40,7 +42,7 @@ void Uxx(GridFunction& output, GridFunction& u, const PointType& h) {
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
-	end[0] = u.griddimension[0] - 2;
+	end[0] = u.griddimension[0] - 3;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
 
@@ -55,7 +57,7 @@ void Uyy(GridFunction& output, GridFunction& u, const PointType& h) {
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
-	end[0] = u.griddimension[0] - 2;
+	end[0] = u.griddimension[0] - 3;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
 
@@ -70,7 +72,7 @@ void Px(GridFunction& output, GridFunction& p, const PointType& h) {
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
-	end[0] = p.griddimension[0] - 2;
+	end[0] = p.griddimension[0] - 3;
 	begin[1] = 1;
 	end[1] = p.griddimension[1] - 2;
 
@@ -87,7 +89,7 @@ void Py(GridFunction& output, GridFunction& p, const PointType& h) {
 	begin[0] = 1;
 	end[0] = p.griddimension[0] - 2;
 	begin[1] = 1;
-	end[1] = p.griddimension[1] - 2;
+	end[1] = p.griddimension[1] - 3;
 
 	Stencil stencil_1(3, h);
 	stencil_1.setPyStencil();
@@ -129,7 +131,7 @@ void Vxx(GridFunction& output, GridFunction& v, const PointType& h) {
 	begin[0] = 1;
 	end[0] = v.griddimension[0] - 2;
 	begin[1] = 1;
-	end[1] = v.griddimension[1] - 2;
+	end[1] = v.griddimension[1] - 3;
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUxxStencil();
@@ -144,7 +146,7 @@ void Vyy(GridFunction& output, GridFunction& v, const PointType& h) {
 	begin[0] = 1;
 	end[0] = v.griddimension[0] - 2;
 	begin[1] = 1;
-	end[1] = v.griddimension[1] - 2;
+	end[1] = v.griddimension[1] - 3;
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUyyStencil();
@@ -158,7 +160,7 @@ void UUx(GridFunction& output, GridFunction& u, const RealType alpha,
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
-	end[0] = u.griddimension[0] - 2;
+	end[0] = u.griddimension[0] - 3;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
 
@@ -220,7 +222,7 @@ void VVy(GridFunction& output, GridFunction& v, const RealType alpha,
 	begin[0] = 1;
 	end[0] = v.griddimension[0] - 2;
 	begin[1] = 1;
-	end[1] = v.griddimension[1] - 2;
+	end[1] = v.griddimension[1] - 3;
 
 	Stencil stencil_1(3, h);
 	stencil_1.setVVy_1Stencil();
@@ -279,7 +281,7 @@ void UVx(GridFunction& output, GridFunction& u, GridFunction& v,
 	begin[0] = 1;
 	end[0] = u.griddimension[0] - 2;
 	begin[1] = 1;
-	end[1] = u.griddimension[1] - 2;
+	end[1] = u.griddimension[1] - 3;
 
 	Stencil stencil_1(3, h);
 	stencil_1.setUVx_1Stencil();
@@ -336,7 +338,7 @@ void UVy(GridFunction& output, GridFunction& u, GridFunction& v,
 	MultiIndexType begin, end;
 
 	begin[0] = 1;
-	end[0] = u.griddimension[0] - 2;
+	end[0] = u.griddimension[0] - 3;
 	begin[1] = 1;
 	end[1] = u.griddimension[1] - 2;
 

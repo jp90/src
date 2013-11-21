@@ -28,24 +28,31 @@ int main() {
 	MultiIndexType begin, end;
 	//Initialize u-velocity
 	begin[0] = 1;
-	end[0] = SimIO.para.iMax - 1+1;
+	end[0] = SimIO.para.iMax - 1;
 	begin[1] = 1;
-	end[1] = SimIO.para.jMax - 1+1;
+	end[1] = SimIO.para.jMax;
 	GridFunction u(SimIO.para.iMax+2, SimIO.para.jMax+2);
 	u.SetGridFunction(begin, end, SimIO.para.ui);
 	//Initialize v-velocity
 	GridFunction v(SimIO.para.iMax+2, SimIO.para.jMax+2);
+	begin[0] = 1;
+	end[0] = SimIO.para.iMax;
+	begin[1] = 1;
+	end[1] = SimIO.para.jMax -1;
 	v.SetGridFunction(begin, end, SimIO.para.vi);
-	v.Grid_Print();
 	//Initialize pressure
 	GridFunction p(SimIO.para.iMax+2, SimIO.para.jMax+2);
+	begin[0] = 1;
+	end[0] = SimIO.para.iMax;
+	begin[1] = 1;
+	end[1] = SimIO.para.jMax;
 	p.SetGridFunction(begin, end, SimIO.para.pi);
 
 	GridFunction gx(u.griddimension);
-	GridFunction gy(u.griddimension);
+	GridFunction gy(v.griddimension);
 
-	GridFunction g(u.griddimension);
 	GridFunction f(u.griddimension);
+	GridFunction g(v.griddimension);
 
 	GridFunction rhs(p.griddimension);
 
@@ -58,7 +65,19 @@ int main() {
 	delta[0]=SimIO.para.deltaX;
 	delta[1]=SimIO.para.deltaY;
 	//Start Main Loop
-	while (t < SimIO.para.tEnd) {
+
+	computer.setBoundaryU(u);
+    computer.setBoundaryV(v);
+    GridFunction ableitung(u.griddimension);
+    Uyy(ableitung,u,delta);
+    u.Grid_Print();
+    ableitung.Grid_Print();
+
+
+
+
+int count=0;
+	while ((t < SimIO.para.tEnd) &&(count<2000)){
 
 		SimIO.writeVTKFile(u.griddimension,u.getGridFunction(),v.getGridFunction(),p.getGridFunction(),delta,n);
 
@@ -71,6 +90,24 @@ int main() {
 		computer.setBoundaryV(v);
 		// Compute F and G
 		computer.computeMomentumEquations(f, g, u, v, gx, gy, deltaT);
+
+		computer.setBoundaryF(f,u);
+		computer.setBoundaryG(g,v);
+
+	/*	cout<<"u"<<endl;
+		u.Grid_Print();
+
+		cout<<"v"<<endl;
+		v.Grid_Print();
+
+		cout<<"f"<<endl;
+		f.Grid_Print();
+
+		cout<<"g"<<endl;
+		g.Grid_Print(); */
+
+
+
 
 		// set right hand side of p equation
 		computer.computeRighthandSide(rhs,f,g,deltaT);
@@ -86,18 +123,20 @@ int main() {
             solve.SORCycle(p,rhs);
 
 			Residuum = solve.computeResidual(p,rhs);
-			cout << "Current Residum: ";
+			cout << "Current Residuum: ";
 			cout << Residuum<<endl;
 			cout << "it= "<<it << "n="<<n<< endl;
 			it++;
 		}
+		if (Residuum>10.0)
+			return 0;
 
 		// Update velocites u and v
 		computer.computeNewVelocities(u, v, f, g, p, deltaT);
 		n++;
 		cout << "t= " << t<< endl;
 		t += deltaT;
+		count++;
 	}
 	cout << "laeuft!";
-
 }
