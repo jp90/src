@@ -61,6 +61,10 @@ public:
 	void setUVy_6Stencil();
 	void setUVy_7Stencil();
 	void setUVy_8Stencil();
+
+	void setFxStencil();
+	void setGyStencil();
+
 	StencilType stencil;
 	int stencilwidth;
 	const PointType& h;
