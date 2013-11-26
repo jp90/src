@@ -38,21 +38,25 @@ void Computation::computeNewVelocities(GridFunction& u, GridFunction& v,
 		GridFunction& f, GridFunction& g, GridFunction& p, RealType deltaT) {
 	GridFunction branch_1(p.griddimension);
 	MultiIndexType begin, end;
-	begin[0] = 0;
-	end[0] = u.griddimension[0] - 1;
-	begin[1] = 0;
-	end[1] = u.griddimension[1] - 1;
+	begin[0] = 1;
+	end[0] = u.griddimension[0] - 3;
+	begin[1] = 1;
+	end[1] = u.griddimension[1] - 2;
 	// u Update
 	PointType delta;
 	delta[0] = SimIO.para.deltaX;
 	delta[1] = SimIO.para.deltaY;
 	Px(branch_1, p, delta);
-	f.AddToGridFunction(begin, end, -SimIO.para.deltaT, branch_1);
+	f.AddToGridFunction(begin, end, -1.0*deltaT, branch_1);
 	u.SetGridFunction(begin, end, 1.0, f);
 	// v Update
+	begin[0] = 1;
+	end[0] = v.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = v.griddimension[1] - 3;
 	GridFunction branch_2(p.griddimension);
 	Py(branch_2, p, delta);
-	g.AddToGridFunction(begin, end, -SimIO.para.deltaT, branch_2);
+	g.AddToGridFunction(begin, end, -1.0*deltaT, branch_2);
 	v.SetGridFunction(begin, end, 1.0, g);
 
 }
@@ -65,12 +69,12 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 	h[0] = SimIO.para.deltaX;
 	h[1] = SimIO.para.deltaY;
 	RealType alpha = SimIO.para.alpha;
-	RealType re = 0.5;
+
 	MultiIndexType begin, end;
-	begin[0] = 0;
-	end[0] = u.griddimension[0] - 1;
-	begin[1] = 0;
-	end[1] = u.griddimension[1] - 1;
+	begin[0] = 1;
+	end[0] = u.griddimension[0] - 3;
+	begin[1] = 1;
+	end[1] = u.griddimension[1] - 2;
 
 	// Term F
 
@@ -79,9 +83,9 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 	GridFunction branch_2(u.griddimension);
 	Uyy(branch_2, u, h);
 	f.AddToGridFunction(begin, end, 1.0, branch_2);
-	f.ScaleGridFunction(begin, end, 1.0 / re);
+	f.ScaleGridFunction(begin, end, 1.0 / SimIO.para.re);
 	GridFunction branch_3(u.griddimension);
-	UUx(branch_3, u, alpha, h);
+	UUx(branch_3, u,alpha, h);
 	GridFunction branch_4(u.griddimension);
 	UVy(branch_4, u, v, alpha, h);
 	branch_3.AddToGridFunction(begin, end, 1.0, branch_4);
@@ -95,16 +99,20 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 	f.AddToGridFunction(begin, end, 1.0, u);
 
 	//Term G
+	begin[0] = 1;
+	end[0] = v.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = v.griddimension[1] - 3;
 
 	Vxx(g, v, h);
-	GridFunction branch_6(u.griddimension);
+	GridFunction branch_6(v.griddimension);
 	Vyy(branch_6, v, h);
 	g.AddToGridFunction(begin, end, 1.0, branch_6);
-	g.ScaleGridFunction(begin, end, 1.0 / re);
+	g.ScaleGridFunction(begin, end, 1.0 / SimIO.para.re);
 
-	GridFunction branch_7(u.griddimension);
+	GridFunction branch_7(v.griddimension);
 	UVx(branch_7, u, v, alpha, h);
-	GridFunction branch_8(u.griddimension);
+	GridFunction branch_8(v.griddimension);
 	VVy(branch_8, v, alpha, h);
 	branch_7.AddToGridFunction(begin, end, 1.0, branch_8);
 
@@ -119,138 +127,169 @@ void Computation::computeMomentumEquations(GridFunction& f, GridFunction& g,
 
 void Computation::setBoundaryU(GridFunction& u) {
 	MultiIndexType begin, end;
-	begin[0] = 0;
-	begin[1] = 0;
-	end[0] = u.griddimension[0] - 1;
-	end[1] = 0;
-	u.SetGridFunction(begin, end, 0.0);
 
+	// u_0,j = 0
 	begin[0] = 0;
-	begin[1] = 0;
 	end[0] = 0;
-	end[1] = u.griddimension[1] - 1;
+	begin[1] = 1;
+	end[1] = u.griddimension[1] - 2;
 	u.SetGridFunction(begin, end, 0.0);
 
-	begin[0] = u.griddimension[0] - 1;
+	//u_iMax,j = 0
+	begin[0] = u.griddimension[0] - 2;
+	end[0] = u.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = u.griddimension[1] - 2;
+	u.SetGridFunction(begin, end, 0.0);
+
+	// u_i,0
+	begin[0] = 1;
+	end[0] = u.griddimension[0] - 2;
 	begin[1] = 0;
-	end[0] = u.griddimension[0] - 1;
-	end[1] = u.griddimension[1] - 1;
-	u.SetGridFunction(begin, end, 0.0);
+	end[1] = 0;
+	MultiIndexType Offset;
+	Offset[0] = 0;
+	Offset[1] = 1;
+	u.SetGridFunction(begin, end, -1.0, Offset);
 
-	begin[0] = 0;
+	// u_i,jMax+1
+	begin[0] = 1;
+	end[0] = u.griddimension[1] - 2;
 	begin[1] = u.griddimension[1] - 1;
-	end[0] = u.griddimension[1] - 1;
 	end[1] = u.griddimension[1] - 1;
-	u.SetGridFunction(begin, end, SimIO.para.ui);
+	Offset[0] = 0;
+	Offset[1] = -1;
+	u.SetGridFunction(begin, end, -1.0, u, Offset, 2.0);
+
+
 }
 void Computation::setBoundaryV(GridFunction& v) {
 	MultiIndexType begin, end;
-	begin[0] = 0;
+
+	// v_i,0 = 0
+	begin[0] = 1;
+	end[0] = v.griddimension[0] - 2;
 	begin[1] = 0;
-	end[0] = v.griddimension[0] - 1;
 	end[1] = 0;
 	v.SetGridFunction(begin, end, 0.0);
 
+	// v_i,jMax =0
+	begin[0] = 1;
+	end[0] = v.griddimension[1] - 2;
+	begin[1] = v.griddimension[1] - 2;
+	end[1] = v.griddimension[1] - 2;
+	v.SetGridFunction(begin, end, 0.0);
+
+	// v_0,j = -v_1,j
 	begin[0] = 0;
-	begin[1] = 0;
 	end[0] = 0;
-	end[1] = v.griddimension[1] - 1;
-	v.SetGridFunction(begin, end, 0.0);
+	begin[1] = 1;
+	end[1] = v.griddimension[1] - 2;
+	MultiIndexType Offset;
+	Offset[0] = 1;
+	Offset[1] = 0;
+	v.SetGridFunction(begin, end, -1.0, Offset);
 
+	// v_iMax+1,j = -v_iMax,j
 	begin[0] = v.griddimension[0] - 1;
-	begin[1] = 0;
 	end[0] = v.griddimension[0] - 1;
-	end[1] = v.griddimension[1] - 1;
-	v.SetGridFunction(begin, end, 0.0);
+	begin[1] = 1;
+	end[1] = v.griddimension[1] - 2;
+	Offset[0] = -1;
+	Offset[1] = 0;
+	v.SetGridFunction(begin, end, -1.0, Offset);
 
-	begin[0] = 0;
-	begin[1] = v.griddimension[1] - 1;
-	end[0] = v.griddimension[1] - 1;
-	end[1] = v.griddimension[1] - 1;
-	v.SetGridFunction(begin, end, 0.0);
 }
 void Computation::setBoundaryP(GridFunction& p) {
 	MultiIndexType begin, end;
+	// p_0,j = p_1,j
 	begin[0] = 0;
-	begin[1] = 0;
-	end[0] = p.griddimension[0] - 1;
-	end[1] = 0;
-	p.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = 0;
-	begin[1] = 0;
 	end[0] = 0;
-	end[1] = p.griddimension[1] - 1;
-	p.SetGridFunction(begin, end, 0.0);
+	begin[1] = 1;
+	end[1] = p.griddimension[1] - 2;
+	MultiIndexType Offset;
+	Offset[0] = 1;
+	Offset[1] = 0;
+	p.SetGridFunction(begin, end, 1.0, Offset);
 
+	// p_iMax+1,j = p_iMax,j
 	begin[0] = p.griddimension[0] - 1;
-	begin[1] = 0;
 	end[0] = p.griddimension[0] - 1;
-	end[1] = p.griddimension[1] - 1;
-	p.SetGridFunction(begin, end, 0.0);
+	begin[1] = 1;
+	end[1] = p.griddimension[1] - 2;
+	Offset[0] = -1;
+	Offset[1] = 0;
+	p.SetGridFunction(begin, end, 1.0, Offset);
 
-	begin[0] = 0;
+	// p_i,0 = p_i,1
+	begin[0] = 1;
+	end[0] = p.griddimension[0] - 2;
+	begin[1] = 0;
+	end[1] = 0;
+	Offset[0] = 0;
+	Offset[1] = 1;
+	p.SetGridFunction(begin, end, 1.0, Offset);
+
+	// p_i,jMax+1 = p_i,jMax
+	begin[0] = 1;
+	end[0] = p.griddimension[0] - 2;
 	begin[1] = p.griddimension[1] - 1;
-	end[0] = p.griddimension[1] - 1;
 	end[1] = p.griddimension[1] - 1;
-	p.SetGridFunction(begin, end, SimIO.para.pi);
+	Offset[0] = 0;
+	Offset[1] = -1;
+	p.SetGridFunction(begin, end, 1.0, Offset);
+
 }
-void Computation::setBoundaryF(GridFunction& f) {
+void Computation::setBoundaryF(GridFunction& f, GridFunction& u) {
 	MultiIndexType begin, end;
+	//F_0,j=u_0,j
 	begin[0] = 0;
-	begin[1] = 0;
-	end[0] = f.griddimension[0] - 1;
-	end[1] = 0;
-	f.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = 0;
-	begin[1] = 0;
 	end[0] = 0;
-	end[1] = f.griddimension[1] - 1;
-	f.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = f.griddimension[0] - 1;
-	begin[1] = 0;
-	end[0] = f.griddimension[0] - 1;
-	end[1] = f.griddimension[1] - 1;
-	f.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = 0;
-	begin[1] = f.griddimension[1] - 1;
-	end[0] = f.griddimension[1] - 1;
-	end[1] = f.griddimension[1] - 1;
-	f.SetGridFunction(begin, end, 0.0);
+	begin[1] = 1;
+	end[1] = f.griddimension[1] - 2;
+	f.SetGridFunction(begin, end, 1.0, u);
+// F_iMax,j=u_iMax+1,j
+	begin[0] = f.griddimension[0] -2;
+	end[0] = f.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = f.griddimension[1] - 2;
+	f.SetGridFunction(begin, end, 1.0, u);
 }
-void Computation::setBoundaryG(GridFunction& g) {
+void Computation::setBoundaryG(GridFunction& g, GridFunction& v) {
+
 	MultiIndexType begin, end;
-	begin[0] = 0;
+	begin[0] = 1;
+	end[0] = g.griddimension[0]-2;
 	begin[1] = 0;
-	end[0] = g.griddimension[0] - 1;
 	end[1] = 0;
-	g.SetGridFunction(begin, end, 0.0);
+	g.SetGridFunction(begin, end, 1.0, v);
 
-	begin[0] = 0;
-	begin[1] = 0;
-	end[0] = 0;
-	end[1] = g.griddimension[1] - 1;
-	g.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = g.griddimension[0] - 1;
-	begin[1] = 0;
-	end[0] = g.griddimension[0] - 1;
-	end[1] = g.griddimension[1] - 1;
-	g.SetGridFunction(begin, end, 0.0);
-
-	begin[0] = 0;
-	begin[1] = g.griddimension[1] - 1;
-	end[0] = g.griddimension[1] - 1;
-	end[1] = g.griddimension[1] - 1;
-	g.SetGridFunction(begin, end, 0.0);
+	begin[0] = 1;
+	end[0] = g.griddimension[0] - 2;
+	begin[1] = g.griddimension[1] - 2;
+	end[1] = g.griddimension[1] - 2;
+	g.SetGridFunction(begin, end, 1.0, v);
 }
 
-void Computation::computeRighthandSide(const MultiIndexType& griddimension,
-		GridFunctionType& rhs, GridFunctionType& f, GridFunctionType& g,
-		const PointType& delta, RealType deltaT) {
+void Computation::computeRighthandSide(GridFunction& rhs, GridFunction& f,
+		GridFunction& g, RealType deltaT) {
+
+	GridFunction branch_1(g.griddimension);
+
+	MultiIndexType begin, end;
+
+	begin[0] = 1;
+	end[0] = f.griddimension[0] - 2;
+	begin[1] = 1;
+	end[1] = f.griddimension[1] - 2;
+	PointType delta;
+	delta[0] = SimIO.para.deltaX;
+	delta[1] = SimIO.para.deltaY;
+	Fx(rhs, f, delta);
+	Gy(branch_1, g, delta);
+
+	rhs.AddToGridFunction(begin, end, 1.0, branch_1);
+	rhs.ScaleGridFunction(begin, end, 1.0 / deltaT);
 
 }
 

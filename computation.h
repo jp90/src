@@ -28,12 +28,10 @@ public:
 	void setBoundaryU(GridFunction& u);
 	void setBoundaryV(GridFunction& v);
 	void setBoundaryP(GridFunction& p);
-	void setBoundaryF(GridFunction& f);
-	void setBoundaryG(GridFunction& g);
+	void setBoundaryF(GridFunction& f, GridFunction& u);
+	void setBoundaryG(GridFunction& g, GridFunction& v);
 
-	void computeRighthandSide(const MultiIndexType& griddimension,
-			GridFunctionType& rhs, GridFunctionType& f, GridFunctionType& g,
-			const PointType& delta, RealType deltaT);
+	void computeRighthandSide(GridFunction& rhs, GridFunction& f, GridFunction& g,RealType deltaT);
 
 	IO SimIO;
 

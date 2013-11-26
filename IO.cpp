@@ -177,7 +177,7 @@ RealType IO::interpolateVelocityV(RealType x, RealType y, GridFunctionType & v,
 }
 
 void IO::writeVTKFile(const MultiIndexType & griddimension,
-		GridFunctionType & u, GridFunctionType & v, GridFunctionType & p,
+		GridFunctionType  u, GridFunctionType  v, GridFunctionType  p,
 		const PointType & delta, int step) {
 	RealType deltaX = delta[0];
 	RealType deltaY = delta[1];

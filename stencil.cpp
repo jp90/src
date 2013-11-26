@@ -42,16 +42,15 @@ void Stencil::ApplyStencilOperator(const MultiIndexType& gridreadbegin, const Mu
 		                           const MultiIndexType& gridwritebegin, const MultiIndexType& gridwriteend,
 		                           GridFunction& sourcegridfunction, GridFunction& imagegridfunction){
 	int a =int((stencilwidth-1)/2);
-
-	for(int i=gridwritebegin[0];i<gridwriteend[0];i++){
-		for(int j=gridwritebegin[1];j<gridwriteend[1];j++){
+int count=0;
+	for(int i=gridwritebegin[0];i<=gridwriteend[0];i++){
+		for(int j=gridwritebegin[1];j<=gridwriteend[1];j++){
 			RealType sum = 0.0;
 			for(int k=0;k<stencilwidth;k++){
 				for(int l=0;l<stencilwidth;l++){
 					//sum += sourcegridfunction.getVridfunction()[i-k-int((stencilwidth-1)/2)]
 					//                                           [j-l-int((stencilwidth-1)/2)]*stencil[k][l];
 					sum += sourcegridfunction.getGridFunction()[i+k-a][j+l-a]*stencil[k][l];
-
 
 				}
 			}
@@ -248,4 +247,13 @@ void Stencil::setUVy_8Stencil(){
 	stencil[1][0]=1.0/2.0;
 	stencil[1][1]=-1.0/2.0;
 }
-
+void Stencil::setFxStencil(){
+	abs=false;
+	stencil[1][1]=1.0/h[0];
+	stencil[0][1]=-1.0/h[0];
+}
+void Stencil::setGyStencil(){
+	abs=false;
+	stencil[1][1]=1.0/h[1];
+	stencil[1][0]=-1.0/h[1];
+}

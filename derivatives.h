@@ -42,4 +42,8 @@ void UVy(GridFunction& output, GridFunction& u, GridFunction& v,
 void UVx(GridFunction& output, GridFunction& u, GridFunction& v,
 		const RealType alpha, const PointType& h);
 
+void Fx(GridFunction& output, GridFunction& f, const PointType& h);
+
+void Gy(GridFunction& output, GridFunction& g, const PointType& h);
+
 #endif /* DERIVATIVES_H_ */
